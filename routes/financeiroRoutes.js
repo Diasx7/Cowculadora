@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/financeirocontroller");
+const controller = require("../controllers/financeiroController");
 const verificarToken = require("../middleware/authMiddleware");
 
 router.get("/cotacao", verificarToken, controller.getCotacao);

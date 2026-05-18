@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/medicamentocontroller");
+const controller = require("../controllers/medicamentoController");
 const verificarToken = require("../middleware/authMiddleware");
 
 router.post("/", verificarToken, controller.registrar);
