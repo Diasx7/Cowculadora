@@ -8,14 +8,14 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 const lotesRoutes = require("./routes/lotesRoutes");
 const medicamentosRoutes = require("./routes/medicamentosRoutes");
 const financeiroRoutes = require("./routes/financeiroRoutes");
-const agendaRoutes = require("./routes/AgendaRoutes");
-const insumosRoutes = require("./routes/Insumosroutes");
+const agendaRoutes = require("./routes/agendaRoutes");
+const insumosRoutes = require("./routes/insumosRoutes");
 const verificarToken = require("./middleware/authMiddleware");
 
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
@@ -37,4 +37,5 @@ app.use("/financeiro", financeiroRoutes);
 app.use("/agenda", agendaRoutes);
 app.use("/insumos", insumosRoutes);
 
-app.listen(3001, () => console.log("🔥 SERVER RODANDO NA 3001"));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`🔥 SERVER RODANDO NA ${PORT}`));
