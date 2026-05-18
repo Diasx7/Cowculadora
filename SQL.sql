@@ -1,0 +1,107 @@
+CREATE DATABASE IF NOT EXISTS cowculadora;
+USE cowculadora;
+
+-- USUÁRIOS
+CREATE TABLE IF NOT EXISTS usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  senha VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- LOTES
+CREATE TABLE IF NOT EXISTS lotes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  descricao VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ANIMAIS
+CREATE TABLE IF NOT EXISTS animais (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  brinco VARCHAR(50) NOT NULL,
+  raca VARCHAR(50),
+  nascimento DATE,
+  sexo VARCHAR(10),
+  lote_id INT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_animal_lote FOREIGN KEY (lote_id) REFERENCES lotes(id) ON DELETE SET NULL
+);
+
+-- PESAGENS
+CREATE TABLE IF NOT EXISTS pesagens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  peso DECIMAL(6,2) NOT NULL,
+  animal VARCHAR(100),
+  usuario_id INT NOT NULL,
+  animal_id INT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_pesagem_animal FOREIGN KEY (animal_id) REFERENCES animais(id) ON DELETE SET NULL
+);
+
+-- MEDICAMENTOS
+CREATE TABLE IF NOT EXISTS medicamentos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  animal_id INT,
+  lote_id INT,
+  nome VARCHAR(100) NOT NULL,
+  dose VARCHAR(50),
+  data_aplicacao DATE NOT NULL,
+  carencia_dias INT DEFAULT 0,
+  observacao VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- FINANCEIRO
+CREATE TABLE IF NOT EXISTS financeiro (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  animal_id INT NOT NULL,
+  valor_compra DECIMAL(10,2),
+  data_compra DATE,
+  peso_compra DECIMAL(6,2),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_animal_user (animal_id, user_id)
+);
+
+-- AGENDA
+CREATE TABLE IF NOT EXISTS agenda (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  animal_id INT,
+  lote_id INT,
+  tipo VARCHAR(50) NOT NULL,
+  descricao VARCHAR(255),
+  data_prevista DATE NOT NULL,
+  concluido TINYINT(1) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- INSUMOS
+CREATE TABLE IF NOT EXISTS insumos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  unidade VARCHAR(20) NOT NULL,
+  preco_unitario DECIMAL(10,2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CONSUMO DE INSUMOS
+CREATE TABLE IF NOT EXISTS consumo_insumos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  insumo_id INT NOT NULL,
+  animal_id INT,
+  lote_id INT,
+  quantidade_dia DECIMAL(10,3) NOT NULL,
+  data_inicio DATE NOT NULL,
+  data_fim DATE,
+  observacao VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
