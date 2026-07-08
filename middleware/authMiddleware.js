@@ -1,6 +1,12 @@
 const jwt = require("jsonwebtoken");
 
-const SECRET = "segredo_super_secreto";
+// o segredo agora vem do .env, nunca mais hardcoded
+const SECRET = process.env.JWT_SECRET;
+
+if (!SECRET) {
+  // se esqueceu de configurar, o servidor nem deve subir
+  throw new Error("JWT_SECRET não configurado no .env");
+}
 
 function verificarToken(req, res, next) {
   const authHeader = req.headers.authorization;
