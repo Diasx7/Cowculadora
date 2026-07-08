@@ -2,8 +2,19 @@ const db = require("../config/db");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+// cache simples da cotação pra não fazer scraping toda hora
+// (o CEPEA atualiza 1x por dia, não faz sentido buscar a cada request)
+let cotacaoCache = null;
+let cacheHora = 0;
+const CACHE_TEMPO = 1000 * 60 * 60; // 1 hora
+
 // BUSCAR COTAÇÃO DA ARROBA DO CEPEA
 exports.getCotacao = async (req, res) => {
+  // se tem cache válido, retorna direto
+  if (cotacaoCache && Date.now() - cacheHora < CACHE_TEMPO) {
+    return res.json(cotacaoCache);
+  }
+
   try {
     const { data } = await axios.get(
       "https://www.cepea.esalq.usp.br/br/indicador/boi-gordo.aspx",
@@ -37,18 +48,26 @@ exports.getCotacao = async (req, res) => {
 
     if (valorArroba) {
       const valorKg = (valorArroba / 15).toFixed(2); // 1 arroba = 15kg
-      res.json({
+      const resultado = {
         arroba: valorArroba.toFixed(2),
         kg: valorKg,
         data: dataRef || new Date().toLocaleDateString("pt-BR"),
         fonte: "CEPEA/ESALQ"
-      });
+      };
+      // guarda no cache
+      cotacaoCache = resultado;
+      cacheHora = Date.now();
+      res.json(resultado);
     } else {
       // Se não conseguir scraping, retorna null para o frontend usar manual
       res.json({ arroba: null, kg: null, data: null, fonte: null });
     }
   } catch (err) {
     console.error("Erro ao buscar cotação:", err.message);
+    // se o scraping falhou mas tem cache velho, melhor cotação de ontem do que nada
+    if (cotacaoCache) {
+      return res.json(cotacaoCache);
+    }
     res.json({ arroba: null, kg: null, data: null, fonte: null });
   }
 };
