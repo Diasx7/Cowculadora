@@ -2,7 +2,7 @@ const db = require("../config/db");
 
 // CRIAR LOTE
 exports.criarLote = async (req, res) => {
-  const { nome, descricao } = req.body;
+  const { nome, descricao, quantidadeInicial, dataEntrada } = req.body;
   const userId = req.usuario.id;
 
   if (!nome) return res.status(400).json({ error: "Nome é obrigatório" });
@@ -15,8 +15,8 @@ exports.criarLote = async (req, res) => {
     if (existing.length > 0) return res.status(400).json({ error: "Já existe um lote com esse nome" });
 
     await db.query(
-      "INSERT INTO lotes (user_id, nome, descricao) VALUES (?, ?, ?)",
-      [userId, nome, descricao || null]
+      "INSERT INTO lotes (user_id, nome, descricao, quantidade_inicial, data_entrada) VALUES (?, ?, ?, ?, ?)",
+      [userId, nome, descricao || null, quantidadeInicial || 0, dataEntrada || null]
     );
     res.status(201).json({ message: "Lote criado com sucesso" });
   } catch (err) {

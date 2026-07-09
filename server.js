@@ -15,6 +15,7 @@ const agendaRoutes = require("./routes/agendaRoutes");
 const insumosRoutes = require("./routes/insumosRoutes");
 const verificarToken = require("./middleware/authMiddleware");
 const sessoesRoutes = require("./routes/sessoesRoutes");
+const movimentacoesRoutes = require("./routes/movimentacoesRoutes");
 const app = express();
 
 // em produção só aceita o domínio do front, em dev aceita tudo
@@ -45,6 +46,7 @@ app.use("/financeiro", financeiroRoutes);
 app.use("/agenda", agendaRoutes);
 app.use("/insumos", insumosRoutes);
 app.use("/sessoes", verificarToken, sessoesRoutes);
+app.use("/movimentacoes", verificarToken, movimentacoesRoutes);
 
 // rota que não existe cai aqui
 app.use((req, res) => {
