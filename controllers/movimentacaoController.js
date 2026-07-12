@@ -20,8 +20,10 @@ async function calcularHeadcount(loteId) {
   return Number(lote.quantidade_inicial) - Number(saidas.total) + Number(entradas.total);
 }
 
+const CAUSAS_MORTE_VALIDAS = ["definhamento", "subita"];
+
 exports.criarMovimentacao = async (req, res) => {
-  const { loteId, tipo, quantidade, dataEvento, loteDestinoId, pesoMedioEstimado, brinco, observacao } = req.body;
+  const { loteId, tipo, quantidade, dataEvento, loteDestinoId, pesoMedioEstimado, brinco, observacao, causaMorte } = req.body;
   const userId = req.usuario.id;
 
   if (!loteId || !tipo || !quantidade || !dataEvento) {
@@ -34,6 +36,10 @@ exports.criarMovimentacao = async (req, res) => {
 
   if (quantidade <= 0) {
     return res.status(400).json({ error: "Quantidade deve ser maior que zero" });
+  }
+
+  if (causaMorte && !CAUSAS_MORTE_VALIDAS.includes(causaMorte)) {
+    return res.status(400).json({ error: "Causa da morte inválida. Use: " + CAUSAS_MORTE_VALIDAS.join(", ") });
   }
 
   try {
@@ -62,8 +68,8 @@ exports.criarMovimentacao = async (req, res) => {
 
     await db.query(
       `INSERT INTO movimentacoes_lote
-        (lote_id, user_id, tipo, quantidade, data_evento, lote_destino_id, peso_medio_estimado, brinco, observacao)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        (lote_id, user_id, tipo, quantidade, data_evento, lote_destino_id, peso_medio_estimado, brinco, observacao, causa_morte)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         loteId,
         userId,
@@ -73,7 +79,9 @@ exports.criarMovimentacao = async (req, res) => {
         tipo === "transferencia" ? loteDestinoId : null,
         pesoMedioEstimado || null,
         brinco || null,
-        observacao || null
+        observacao || null,
+        // causa_morte só faz sentido pra tipo='morte' - nos outros tipos ignora silenciosamente
+        tipo === "morte" ? (causaMorte || null) : null
       ]
     );
 
