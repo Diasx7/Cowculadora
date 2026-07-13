@@ -30,7 +30,7 @@ exports.getCotacao = async (req, res) => {
     let valorArroba = null;
     let dataRef = null;
 
-    // Tenta pegar o valor da tabela do Cepea
+    // tenta pegar o valor da tabela do Cepea
     $("table#imagenet-indicador1 tbody tr").first().find("td").each((i, el) => {
       const txt = $(el).text().trim().replace(",", ".");
       if (i === 0) dataRef = txt;
@@ -38,7 +38,7 @@ exports.getCotacao = async (req, res) => {
     });
 
     if (!valorArroba) {
-      // Fallback: tenta outro seletor
+      // se não achou, tenta outro seletor
       $(".cepea-table-bold").first().each((i, el) => {
         const txt = $(el).text().trim();
         const num = parseFloat(txt.replace(",", ".").replace(/[^\d.]/g, ""));
@@ -59,7 +59,7 @@ exports.getCotacao = async (req, res) => {
       cacheHora = Date.now();
       res.json(resultado);
     } else {
-      // Se não conseguir scraping, retorna null para o frontend usar manual
+      // se não conseguir scraping, retorna null pro frontend usar manual
       res.json({ arroba: null, kg: null, data: null, fonte: null });
     }
   } catch (err) {
@@ -80,7 +80,7 @@ exports.salvarFinanceiro = async (req, res) => {
   if (!animalId) return res.status(400).json({ error: "Animal é obrigatório" });
 
   try {
-    // Verifica se já existe
+    // verifica se já existe
     const [existing] = await db.query(
       "SELECT id FROM financeiro WHERE animal_id = ? AND user_id = ?",
       [animalId, userId]

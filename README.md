@@ -1,10 +1,10 @@
-# 🐄 Cowculadora — Sistema de Gestão de Confinamento Bovino
+# Cowculadora — Sistema de Gestão de Confinamento Bovino
 
 Sistema web para gerenciar animais em confinamento. Feito com React no frontend e Node.js no backend.
 
 ---
 
-## 📸 O que o sistema faz
+## O que o sistema faz
 
 - Cadastro de animais com brinco, raça, sexo e data de nascimento
 - Registro de pesagens vinculadas ao animal
@@ -19,7 +19,7 @@ Sistema web para gerenciar animais em confinamento. Feito com React no frontend 
 
 ---
 
-## 🛠️ Tecnologias usadas
+## Tecnologias usadas
 
 **Frontend**
 - React
@@ -35,7 +35,7 @@ Sistema web para gerenciar animais em confinamento. Feito com React no frontend 
 
 ---
 
-## 🚀 Como rodar o projeto
+## Como rodar o projeto
 
 ### Pré-requisitos
 - Node.js instalado
@@ -88,7 +88,7 @@ O frontend vai rodar em `http://localhost:3000` e o backend em `http://localhost
 
 ---
 
-## 📁 Estrutura do projeto
+## Estrutura do projeto
 
 ```
 cowculadora/
@@ -105,6 +105,6 @@ cowculadora/
 
 ---
 
-## 👨‍💻 Autor
+## Autor
 
 Feito por [João Pablo](https://github.com/Diasx7)

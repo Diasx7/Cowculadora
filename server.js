@@ -31,9 +31,9 @@ app.use(cors({
 
 app.use(express.json());
 
-app.get("/ping", (req, res) => res.send("API funcionando 🚀"));
+app.get("/ping", (req, res) => res.send("API funcionando"));
 app.get("/perfil", verificarToken, (req, res) => {
-  res.json({ message: "Acesso liberado 🔓", usuario: req.usuario });
+  res.json({ message: "Acesso liberado", usuario: req.usuario });
 });
 
 app.use("/", userRoutes);
@@ -48,17 +48,16 @@ app.use("/insumos", insumosRoutes);
 app.use("/sessoes", verificarToken, sessoesRoutes);
 app.use("/movimentacoes", verificarToken, movimentacoesRoutes);
 
-// rota que não existe cai aqui
+
 app.use((req, res) => {
   res.status(404).json({ error: "Rota não encontrada" });
 });
 
-// se algum controller estourar erro sem tratar, cai aqui
-// e o usuário não vê stack trace
+
 app.use((err, req, res, next) => {
   console.error("ERRO NÃO TRATADO:", err);
   res.status(500).json({ error: "Erro interno do servidor" });
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`🔥 SERVER RODANDO NA ${PORT}`));
+app.listen(PORT, () => console.log(` SERVER RODANDO NA ${PORT}`));

@@ -59,7 +59,7 @@ exports.getDashboard = async (req, res) => {
       "SELECT sexo, COUNT(*) as total FROM animais WHERE user_id = ? GROUP BY sexo", [userId]
     );
 
-    // Alertas de carência ativa
+    // alertas de carência ativa
     const [[{ emCarencia }]] = await db.query(
       `SELECT COUNT(*) as emCarencia FROM medicamentos m
        WHERE m.user_id = ?
@@ -67,7 +67,7 @@ exports.getDashboard = async (req, res) => {
          AND DATE_ADD(m.data_aplicacao, INTERVAL m.carencia_dias DAY) >= CURDATE()`, [userId]
     );
 
-    // Últimos medicamentos aplicados
+    // últimos medicamentos aplicados
     const [ultimosMedicamentos] = await db.query(
       `SELECT m.nome, m.data_aplicacao, m.carencia_dias,
         a.brinco, l.nome as lote_nome,
