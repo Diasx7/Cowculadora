@@ -1,3 +1,8 @@
+/* fundo escuro na raiz - senão o elastico do scroll no celular mostra branco atras das telas */
+html, body, #root {
+  background-color: #0d0f0a;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
