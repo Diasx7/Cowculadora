@@ -31,8 +31,10 @@ function Perfil({ setTela }) {
     ? dados.nome.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase()
     : dados?.email?.[0]?.toUpperCase() ?? "?";
 
+  // unico lugar do app que mantem emoji - o resto foi removido de proposito
   const actions = [
     { icon: "⚖️", title: "Nova Pesagem",  sub: "Registrar peso",      acao: () => setTela("pesagem") },
+    { icon: "🐂", title: "Pesagem de Lote", sub: "Sessão em massa",  acao: () => setTela("sessaoPesagem") },
     { icon: "📊", title: "Relatórios",    sub: "Ver dashboard",       acao: () => setTela("dashboard") },
     { icon: "🐄", title: "Rebanho",       sub: "Gerenciar animais",   acao: () => setTela("animais") },
     { icon: "🗂️", title: "Lotes",         sub: "Organizar rebanho",   acao: () => setTela("lotes") },
@@ -46,10 +48,10 @@ function Perfil({ setTela }) {
     <div className="agro-root">
       <nav className="top-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <div className="nav-brand-name">PesoMax</div>
         </div>
-        <button className="btn-logout" onClick={logout}>⏻ Sair</button>
+        <button className="btn-logout" onClick={logout}>Sair</button>
       </nav>
 
       <div className="profile-card">
@@ -67,7 +69,7 @@ function Perfil({ setTela }) {
               ) : (
                 <>
                   <h3>{dados?.nome ?? "Produtor"}</h3>
-                  <div className="role-tag"><span>🌾</span> Produtor Rural</div>
+                  <div className="role-tag">Produtor Rural</div>
                 </>
               )}
             </div>
@@ -93,11 +95,7 @@ function Perfil({ setTela }) {
                 </div>
                 <div className="data-item">
                   <div className="data-item-label">Status</div>
-                  <div className="data-item-value" style={{ color: "#6daa28" }}>Ativo ✓</div>
-                </div>
-                <div className="data-item full">
-                  <div className="data-item-label">E-mail</div>
-                  <div className="data-item-value">{dados?.email}</div>
+                  <div className="data-item-value" style={{ color: "#6daa28" }}>Ativo</div>
                 </div>
               </div>
               <div className="section-label">Acesso rápido</div>

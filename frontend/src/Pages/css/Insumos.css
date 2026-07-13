@@ -40,7 +40,7 @@
 .input-wrap { position: relative; }
 .input-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 15px; color: #3d4a30; pointer-events: none; }
 .field-group.focused .input-icon { color: #6daa28; }
-.agro-input { width: 100%; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 14px 12px 42px; font-family: 'Barlow', sans-serif; font-size: 15px; color: #f0ede6; outline: none; transition: border-color 0.2s, background 0.2s; }
+.agro-input { width: 100%; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 14px; font-family: 'Barlow', sans-serif; font-size: 15px; color: #f0ede6; outline: none; transition: border-color 0.2s, background 0.2s; }
 .agro-input::placeholder { color: #3a4232; }
 .agro-input:focus { border-color: #6daa28; background: rgba(109,170,40,0.06); box-shadow: 0 0 0 3px rgba(109,170,40,0.1); }
 .btn-salvar { width: 100%; padding: 14px; background: linear-gradient(135deg, #4a7c1e, #6daa28); border: none; border-radius: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #fff; cursor: pointer; transition: transform 0.15s, opacity 0.2s; box-shadow: 0 4px 20px rgba(74,124,30,0.35); position: relative; overflow: hidden; }
@@ -71,7 +71,7 @@
 .custo-item { font-size: 12px; color: #5a6350; }
 .custo-destaque strong { color: #6daa28; font-size: 14px; }
 .consumo-obs { font-size: 11px; color: #3a4232; margin-top: 4px; }
-.btn-deletar { width: 34px; height: 34px; background: transparent; border: 1.5px solid rgba(224,82,82,0.2); border-radius: 8px; font-size: 15px; color: #e05252; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.btn-deletar { padding: 7px 12px; background: transparent; border: 1.5px solid rgba(224,82,82,0.2); border-radius: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: #e05252; cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
 .btn-deletar:hover { background: rgba(224,82,82,0.1); }
 .empty-state { display: flex; flex-direction: column; align-items: center; padding: 56px 24px; gap: 8px; }
 .empty-icon { font-size: 44px; opacity: 0.25; margin-bottom: 4px; }

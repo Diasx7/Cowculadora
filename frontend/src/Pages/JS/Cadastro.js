@@ -9,6 +9,7 @@ function Cadastro({ setTela }) {
   const [loading, setLoading] = useState(false);
   const [focusField, setFocusField] = useState(null);
   const [erro, setErro] = useState("");
+  const [sucesso, setSucesso] = useState(false);
 
   async function handleCadastro() {
     setErro("");
@@ -26,8 +27,9 @@ function Cadastro({ setTela }) {
     setLoading(true);
     try {
       await api.post("/usuarios", { nome, email, senha });
-      alert("Cadastro realizado com sucesso!");
-      setTela("login");
+      // mostra o toast e so troca de tela depois - sem travar com alert nativo
+      setSucesso(true);
+      setTimeout(() => setTela("login"), 2000);
     } catch (err) {
       console.error("Erro no cadastro:", err);
       if (err.response) {
@@ -46,17 +48,23 @@ function Cadastro({ setTela }) {
     senha.length === 0 ? 0 : senha.length < 4 ? 1 : senha.length < 7 ? 2 : 3;
 
   const fields = [
-    { id: "nome",  label: "Nome completo", type: "text",     placeholder: "João da Silva",       icon: "👤", value: nome,  setter: setNome,  autoComplete: "name" },
-    { id: "email", label: "E-mail",        type: "email",    placeholder: "seu@email.com",        icon: "✉",  value: email, setter: setEmail, autoComplete: "email" },
-    { id: "senha", label: "Senha",         type: "password", placeholder: "Mínimo 6 caracteres", icon: "🔒", value: senha, setter: setSenha, autoComplete: "new-password" },
+    { id: "nome",  label: "Nome completo", type: "text",     placeholder: "João da Silva",       value: nome,  setter: setNome,  autoComplete: "name" },
+    { id: "email", label: "E-mail",        type: "email",    placeholder: "seu@email.com",        value: email, setter: setEmail, autoComplete: "email" },
+    { id: "senha", label: "Senha",         type: "password", placeholder: "Mínimo 6 caracteres", value: senha, setter: setSenha, autoComplete: "new-password" },
   ];
 
   return (
     <div className="agro-root">
+      {sucesso && (
+        <div className="toast-sucesso">
+          <span className="toast-dot" />
+          Cadastro realizado com sucesso
+        </div>
+      )}
       <div className="cad-wrapper">
 
         <div className="login-brand">
-          <div className="brand-icon">⚖️</div>
+          <div className="brand-icon">PM</div>
           <div className="brand-title">PesoMax</div>
           <div className="brand-subtitle">Balança de Confinamento</div>
         </div>
@@ -75,7 +83,7 @@ function Cadastro({ setTela }) {
 
           {erro && (
             <div className="erro-box">
-              ⚠️ {erro}
+              {erro}
             </div>
           )}
 
@@ -83,7 +91,6 @@ function Cadastro({ setTela }) {
             <div key={f.id} className={`field-group${focusField === f.id ? " focused" : ""}`}>
               <label className="field-label">{f.label}</label>
               <div className="input-wrap">
-                <span className="input-icon">{f.icon}</span>
                 <input
                   className="agro-input"
                   type={f.type}

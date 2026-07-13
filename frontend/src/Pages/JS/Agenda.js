@@ -3,12 +3,12 @@ import api from "../../api";
 import "../css/Agenda.css";
 
 const TIPOS = [
-  { value: "pesagem",       label: "Pesagem",       icon: "⚖️" },
-  { value: "vacina",        label: "Vacina",         icon: "💉" },
-  { value: "vermifugacao",  label: "Vermifugação",   icon: "🧪" },
-  { value: "venda",         label: "Venda",          icon: "💰" },
-  { value: "manejo",        label: "Manejo Geral",   icon: "🔧" },
-  { value: "outro",         label: "Outro",          icon: "📋" },
+  { value: "pesagem",       label: "Pesagem" },
+  { value: "vacina",        label: "Vacina" },
+  { value: "vermifugacao",  label: "Vermifugação" },
+  { value: "venda",         label: "Venda" },
+  { value: "manejo",        label: "Manejo Geral" },
+  { value: "outro",         label: "Outro" },
 ];
 
 function Agenda({ setTela }) {
@@ -99,7 +99,7 @@ function Agenda({ setTela }) {
   }
 
   function getTipoInfo(val) {
-    return TIPOS.find(t => t.value === val) || { label: val, icon: "📋" };
+    return TIPOS.find(t => t.value === val) || { label: val };
   }
 
   const pendentes = eventos.filter(e => !e.concluido);
@@ -116,10 +116,10 @@ function Agenda({ setTela }) {
     <div className="agenda-root">
       <nav className="agenda-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <span className="nav-brand-name">PesoMax</span>
         </div>
-        <button className="btn-voltar" onClick={() => setTela("perfil")}>← Voltar</button>
+        <button className="btn-voltar" onClick={() => setTela("perfil")}>Voltar</button>
       </nav>
 
       <div className="agenda-content">
@@ -129,29 +129,25 @@ function Agenda({ setTela }) {
             <p>{pendentes.length} evento(s) pendente(s)</p>
           </div>
           <button className="btn-novo" onClick={() => { setMostrarForm(!mostrarForm); setErro(""); }}>
-            {mostrarForm ? "✕ Fechar" : "+ Novo Evento"}
+            {mostrarForm ? "Fechar" : "+ Novo Evento"}
           </button>
         </div>
 
         {/* STATS */}
         <div className="stats-row">
           <div className="stat-card">
-            <div className="stat-icon">📅</div>
             <div className="stat-value">{pendentes.length}</div>
             <div className="stat-label">Pendentes</div>
           </div>
           <div className={`stat-card${atrasados.length > 0 ? " alerta" : ""}`}>
-            <div className="stat-icon">{atrasados.length > 0 ? "🚨" : "✅"}</div>
             <div className="stat-value" style={{ color: atrasados.length > 0 ? "#e05252" : "#6daa28" }}>{atrasados.length}</div>
             <div className="stat-label">Atrasados</div>
           </div>
           <div className={`stat-card${urgentes.length > 0 ? " alerta-amarelo" : ""}`}>
-            <div className="stat-icon">{urgentes.length > 0 ? "⚠️" : "🟢"}</div>
             <div className="stat-value" style={{ color: urgentes.length > 0 ? "#e09a28" : "#6daa28" }}>{urgentes.length}</div>
             <div className="stat-label">Próximos 3 dias</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">✅</div>
             <div className="stat-value">{concluidos.length}</div>
             <div className="stat-label">Concluídos</div>
           </div>
@@ -164,13 +160,13 @@ function Agenda({ setTela }) {
               <span className="form-card-title">Novo Evento</span>
               <span className="form-badge">Agendar</span>
             </div>
-            {erro && <div className="erro-box">⚠️ {erro}</div>}
+            {erro && <div className="erro-box">{erro}</div>}
 
             {/* TIPO DE EVENTO */}
             <div className="tipos-grid">
               {TIPOS.map(t => (
                 <button key={t.value} className={`tipo-btn${tipo === t.value ? " ativo" : ""}`} onClick={() => setTipo(t.value)}>
-                  {t.icon} {t.label}
+                  {t.label}
                 </button>
               ))}
             </div>
@@ -179,7 +175,6 @@ function Agenda({ setTela }) {
               <div className={`field-group${focusField === "data" ? " focused" : ""}`}>
                 <label className="field-label">Data Prevista *</label>
                 <div className="input-wrap">
-                  <span className="input-icon">📅</span>
                   <input className="agro-input" type="date" value={dataPrevista} onChange={e => setDataPrevista(e.target.value)} onFocus={() => setFocusField("data")} onBlur={() => setFocusField(null)} />
                 </div>
               </div>
@@ -187,7 +182,6 @@ function Agenda({ setTela }) {
               <div className={`field-group${focusField === "desc" ? " focused" : ""}`}>
                 <label className="field-label">Descrição</label>
                 <div className="input-wrap">
-                  <span className="input-icon">📝</span>
                   <input className="agro-input" placeholder="Detalhes do evento" value={descricao} onChange={e => setDescricao(e.target.value)} onFocus={() => setFocusField("desc")} onBlur={() => setFocusField(null)} />
                 </div>
               </div>
@@ -195,17 +189,16 @@ function Agenda({ setTela }) {
 
             {/* ALVO */}
             <div className="tipo-toggle" style={{ marginBottom: 16 }}>
-              <button className={`tipo-btn${tipoAlvo === "animal" ? " ativo" : ""}`} onClick={() => setTipoAlvo("animal")}>🐄 Animal específico</button>
-              <button className={`tipo-btn${tipoAlvo === "lote" ? " ativo" : ""}`} onClick={() => setTipoAlvo("lote")}>🗂️ Lote</button>
-              <button className={`tipo-btn${tipoAlvo === "geral" ? " ativo" : ""}`} onClick={() => setTipoAlvo("geral")}>🌾 Geral</button>
+              <button className={`tipo-btn${tipoAlvo === "animal" ? " ativo" : ""}`} onClick={() => setTipoAlvo("animal")}>Animal específico</button>
+              <button className={`tipo-btn${tipoAlvo === "lote" ? " ativo" : ""}`} onClick={() => setTipoAlvo("lote")}>Lote</button>
+              <button className={`tipo-btn${tipoAlvo === "geral" ? " ativo" : ""}`} onClick={() => setTipoAlvo("geral")}>Geral</button>
             </div>
 
             {tipoAlvo === "animal" && (
               <div className="field-group" style={{ marginBottom: 16 }}>
                 <label className="field-label">Animal</label>
                 <div className="input-wrap">
-                  <span className="input-icon">🐄</span>
-                  <select className="agro-input" style={{ paddingLeft: 42 }} value={animalId} onChange={e => setAnimalId(e.target.value)}>
+                  <select className="agro-input" style={{ paddingLeft: 14 }} value={animalId} onChange={e => setAnimalId(e.target.value)}>
                     <option value="">Selecione (opcional)</option>
                     {animais.map(a => <option key={a.id} value={a.id}>#{a.brinco} {a.raca ? `· ${a.raca}` : ""}</option>)}
                   </select>
@@ -217,8 +210,7 @@ function Agenda({ setTela }) {
               <div className="field-group" style={{ marginBottom: 16 }}>
                 <label className="field-label">Lote</label>
                 <div className="input-wrap">
-                  <span className="input-icon">🗂️</span>
-                  <select className="agro-input" style={{ paddingLeft: 42 }} value={loteId} onChange={e => setLoteId(e.target.value)}>
+                  <select className="agro-input" style={{ paddingLeft: 14 }} value={loteId} onChange={e => setLoteId(e.target.value)}>
                     <option value="">Selecione (opcional)</option>
                     {lotes.map(l => <option key={l.id} value={l.id}>{l.nome}</option>)}
                   </select>
@@ -235,8 +227,8 @@ function Agenda({ setTela }) {
         {/* FILTROS */}
         <div className="filtros">
           <button className={`filtro-btn${filtro === "pendentes" ? " ativo" : ""}`} onClick={() => setFiltro("pendentes")}>Pendentes ({pendentes.length})</button>
-          <button className={`filtro-btn${filtro === "atrasados" ? " ativo" : ""}`} onClick={() => setFiltro("atrasados")}>🚨 Atrasados ({atrasados.length})</button>
-          <button className={`filtro-btn${filtro === "concluidos" ? " ativo" : ""}`} onClick={() => setFiltro("concluidos")}>✅ Concluídos ({concluidos.length})</button>
+          <button className={`filtro-btn${filtro === "atrasados" ? " ativo" : ""}`} onClick={() => setFiltro("atrasados")}>Atrasados ({atrasados.length})</button>
+          <button className={`filtro-btn${filtro === "concluidos" ? " ativo" : ""}`} onClick={() => setFiltro("concluidos")}>Concluídos ({concluidos.length})</button>
         </div>
 
         {/* LISTA */}
@@ -250,7 +242,6 @@ function Agenda({ setTela }) {
             <div className="skeleton-list">{[1,2,3].map(i => <div key={i} className="skeleton-row" />)}</div>
           ) : filtrados.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-icon">📅</div>
               <p>Nenhum evento encontrado</p>
               <span>Clique em "+ Novo Evento" para agendar</span>
             </div>
@@ -260,15 +251,14 @@ function Agenda({ setTela }) {
               const tipoInfo = getTipoInfo(ev.tipo);
               return (
                 <div key={ev.id} className={`evento-item status-${status}`} style={{ animationDelay: `${idx * 0.04}s` }}>
-                  <div className="evento-icon">{tipoInfo.icon}</div>
                   <div className="evento-info">
                     <div className="evento-tipo">{tipoInfo.label}
-                      {ev.brinco && <span className="evento-alvo"> · 🐄 #{ev.brinco}</span>}
-                      {ev.lote_nome && <span className="evento-alvo"> · 🗂️ {ev.lote_nome}</span>}
+                      {ev.brinco && <span className="evento-alvo"> · #{ev.brinco}</span>}
+                      {ev.lote_nome && <span className="evento-alvo"> · {ev.lote_nome}</span>}
                     </div>
                     {ev.descricao && <div className="evento-desc">{ev.descricao}</div>}
                     <div className="evento-data">
-                      📅 {formatarData(ev.data_prevista)}
+                      {formatarData(ev.data_prevista)}
                       {!ev.concluido && (
                         <span className={`dias-badge ${status}`}>
                           {ev.dias_restantes < 0
@@ -281,9 +271,9 @@ function Agenda({ setTela }) {
                   </div>
                   <div className="evento-acoes">
                     {!ev.concluido && (
-                      <button className="btn-concluir" onClick={() => handleConcluir(ev.id)}>✓</button>
+                      <button className="btn-concluir" onClick={() => handleConcluir(ev.id)}>Concluir</button>
                     )}
-                    <button className="btn-deletar" onClick={() => handleDeletar(ev.id)}>🗑️</button>
+                    <button className="btn-deletar" onClick={() => handleDeletar(ev.id)}>Remover</button>
                   </div>
                 </div>
               );

@@ -34,7 +34,7 @@ function HistoricoAnimal({ setTela, animalId }) {
     carregar();
   }, [animalId]);
 
-  // Monta o gráfico quando pesagens carregarem
+  // monta o gráfico quando pesagens carregarem
   useEffect(() => {
     if (pesagens.length < 2 || !chartRef.current) return;
 
@@ -42,7 +42,7 @@ function HistoricoAnimal({ setTela, animalId }) {
       chartInstance.current.destroy();
     }
 
-    // Ordena do mais antigo ao mais recente para o gráfico
+    // ordena do mais antigo ao mais recente para o gráfico
     const ordenadas = [...pesagens].reverse();
     const labels = ordenadas.map((p) => new Date(p.created_at).toLocaleDateString("pt-BR"));
     const pesos = ordenadas.map((p) => Number(p.peso));
@@ -146,10 +146,10 @@ function HistoricoAnimal({ setTela, animalId }) {
     <div className="historico-root">
       <nav className="historico-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <span className="nav-brand-name">PesoMax</span>
         </div>
-        <button className="btn-voltar" onClick={() => setTela("animais")}>← Voltar</button>
+        <button className="btn-voltar" onClick={() => setTela("animais")}>Voltar</button>
       </nav>
 
       <div className="historico-content">
@@ -163,13 +163,13 @@ function HistoricoAnimal({ setTela, animalId }) {
             {animal && (
               <div className="animal-info-card">
                 <div className="animal-header">
-                  <div className="animal-avatar-big">{animal.sexo === "Fêmea" ? "🐄" : "🐂"}</div>
+                  <div className="animal-avatar-big">{animal.sexo === "Fêmea" ? "F" : "M"}</div>
                   <div>
                     <div className="animal-brinco-big">#{animal.brinco}</div>
                     <div className="animal-tags">
                       {animal.raca && <span className="tag">{animal.raca}</span>}
                       {animal.sexo && <span className="tag">{animal.sexo}</span>}
-                      {animal.nascimento && <span className="tag">📅 {calcularIdade(animal.nascimento)}</span>}
+                      {animal.nascimento && <span className="tag">{calcularIdade(animal.nascimento)}</span>}
                     </div>
                   </div>
                 </div>
@@ -179,26 +179,22 @@ function HistoricoAnimal({ setTela, animalId }) {
             {/* STATS */}
             <div className="stats-row">
               <div className="stat-card">
-                <div className="stat-icon">⚖️</div>
                 <div className="stat-value">{pesoAtual ?? "—"}</div>
                 <div className="stat-label">Peso atual (kg)</div>
               </div>
               <div className="stat-card">
-                <div className="stat-icon">📈</div>
                 <div className="stat-value" style={{ color: gmdGeral > 0 ? "#6daa28" : "#e05252" }}>
                   {gmdGeral ?? "—"}
                 </div>
                 <div className="stat-label">GMD (kg/dia)</div>
               </div>
               <div className="stat-card">
-                <div className="stat-icon">🏆</div>
                 <div className="stat-value" style={{ color: ganhoTotal > 0 ? "#6daa28" : "#e05252" }}>
                   {ganhoTotal !== null ? (ganhoTotal > 0 ? `+${ganhoTotal}` : ganhoTotal) : "—"}
                 </div>
                 <div className="stat-label">Ganho total (kg)</div>
               </div>
               <div className="stat-card">
-                <div className="stat-icon">📋</div>
                 <div className="stat-value">{pesagens.length}</div>
                 <div className="stat-label">Pesagens</div>
               </div>
@@ -226,7 +222,6 @@ function HistoricoAnimal({ setTela, animalId }) {
 
               {pesagens.length === 0 ? (
                 <div className="empty-state">
-                  <div className="empty-icon">📋</div>
                   <p>Nenhuma pesagem registrada</p>
                   <span>Registre a primeira pesagem deste animal</span>
                 </div>

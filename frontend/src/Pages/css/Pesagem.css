@@ -48,7 +48,7 @@
 .input-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 15px; color: #3d4a30; pointer-events: none; transition: color 0.2s; }
 .field-group.focused .input-icon { color: #6daa28; }
 
-.agro-input { width: 100%; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 14px 12px 42px; font-family: 'Barlow', sans-serif; font-size: 15px; color: #f0ede6; outline: none; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s; -webkit-appearance: none; }
+.agro-input { width: 100%; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 14px; font-family: 'Barlow', sans-serif; font-size: 15px; color: #f0ede6; outline: none; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s; -webkit-appearance: none; }
 .agro-input::placeholder { color: #3a4232; }
 .agro-input:focus { border-color: #6daa28; background: rgba(109,170,40,0.06); box-shadow: 0 0 0 3px rgba(109,170,40,0.1); }
 

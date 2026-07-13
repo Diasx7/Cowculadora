@@ -279,7 +279,7 @@
   background: rgba(255,255,255,0.04);
   border: 1.5px solid rgba(255,255,255,0.08);
   border-radius: 10px;
-  padding: 12px 14px 12px 42px;
+  padding: 12px 14px;
   font-family: 'Barlow', sans-serif;
   font-size: 15px;
   color: #f0ede6;
@@ -296,9 +296,7 @@
   box-shadow: 0 0 0 3px rgba(109,170,40,0.1);
 }
 
-/* select tem padding diferente pois não tem ícone à esquerda em alguns */
 .agro-input.select-input {
-  padding-left: 42px;
   cursor: pointer;
 }
 
@@ -494,18 +492,17 @@
 }
 
 .btn-deletar {
-  width: 34px;
-  height: 34px;
+  padding: 7px 12px;
   background: transparent;
   border: 1.5px solid rgba(224,82,82,0.2);
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
   color: #e05252;
+  white-space: nowrap;
 }
 
 .btn-deletar:hover {

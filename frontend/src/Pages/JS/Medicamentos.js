@@ -96,10 +96,10 @@ function Medicamentos({ setTela }) {
     <div className="med-root">
       <nav className="med-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <span className="nav-brand-name">PesoMax</span>
         </div>
-        <button className="btn-voltar" onClick={() => setTela("perfil")}>← Voltar</button>
+        <button className="btn-voltar" onClick={() => setTela("perfil")}>Voltar</button>
       </nav>
 
       <div className="med-content">
@@ -109,24 +109,21 @@ function Medicamentos({ setTela }) {
             <p>{medicamentos.length} registro(s)</p>
           </div>
           <button className="btn-novo" onClick={() => { setMostrarForm(!mostrarForm); setErro(""); setSucesso(""); }}>
-            {mostrarForm ? "✕ Fechar" : "+ Registrar"}
+            {mostrarForm ? "Fechar" : "+ Registrar"}
           </button>
         </div>
 
         {/* STATS */}
         <div className="stats-row">
           <div className="stat-card">
-            <div className="stat-icon">💊</div>
             <div className="stat-value">{medicamentos.length}</div>
             <div className="stat-label">Total aplicações</div>
           </div>
           <div className={`stat-card${emCarencia.length > 0 ? " alerta" : ""}`}>
-            <div className="stat-icon">{emCarencia.length > 0 ? "⚠️" : "✅"}</div>
             <div className="stat-value" style={{ color: emCarencia.length > 0 ? "#e09a28" : "#6daa28" }}>{emCarencia.length}</div>
             <div className="stat-label">Em carência</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">📅</div>
             <div className="stat-value">{medicamentos.filter(m => {
               const d = new Date(m.data_aplicacao);
               const hoje = new Date();
@@ -143,19 +140,18 @@ function Medicamentos({ setTela }) {
               <span className="form-card-title">Registrar Aplicação</span>
               <span className="form-badge">Novo</span>
             </div>
-            {erro && <div className="erro-box">⚠️ {erro}</div>}
+            {erro && <div className="erro-box">{erro}</div>}
 
             {/* TIPO */}
             <div className="tipo-toggle">
-              <button className={`tipo-btn${tipoAplicacao === "animal" ? " ativo" : ""}`} onClick={() => setTipoAplicacao("animal")}>🐄 Por Animal</button>
-              <button className={`tipo-btn${tipoAplicacao === "lote" ? " ativo" : ""}`} onClick={() => setTipoAplicacao("lote")}>🗂️ Por Lote</button>
+              <button className={`tipo-btn${tipoAplicacao === "animal" ? " ativo" : ""}`} onClick={() => setTipoAplicacao("animal")}>Por Animal</button>
+              <button className={`tipo-btn${tipoAplicacao === "lote" ? " ativo" : ""}`} onClick={() => setTipoAplicacao("lote")}>Por Lote</button>
             </div>
 
             <div className="form-row">
               <div className={`field-group${focusField === "nome" ? " focused" : ""}`}>
                 <label className="field-label">Medicamento *</label>
                 <div className="input-wrap">
-                  <span className="input-icon">💊</span>
                   <input className="agro-input" placeholder="Ex: Ivermectina" value={nome} onChange={e => setNome(e.target.value)} onFocus={() => setFocusField("nome")} onBlur={() => setFocusField(null)} />
                 </div>
               </div>
@@ -163,7 +159,6 @@ function Medicamentos({ setTela }) {
               <div className={`field-group${focusField === "dose" ? " focused" : ""}`}>
                 <label className="field-label">Dose</label>
                 <div className="input-wrap">
-                  <span className="input-icon">💉</span>
                   <input className="agro-input" placeholder="Ex: 5ml/100kg" value={dose} onChange={e => setDose(e.target.value)} onFocus={() => setFocusField("dose")} onBlur={() => setFocusField(null)} />
                 </div>
               </div>
@@ -171,7 +166,6 @@ function Medicamentos({ setTela }) {
               <div className={`field-group${focusField === "data" ? " focused" : ""}`}>
                 <label className="field-label">Data de Aplicação *</label>
                 <div className="input-wrap">
-                  <span className="input-icon">📅</span>
                   <input className="agro-input" type="date" value={dataAplicacao} onChange={e => setDataAplicacao(e.target.value)} onFocus={() => setFocusField("data")} onBlur={() => setFocusField(null)} />
                 </div>
               </div>
@@ -179,7 +173,6 @@ function Medicamentos({ setTela }) {
               <div className={`field-group${focusField === "carencia" ? " focused" : ""}`}>
                 <label className="field-label">Carência (dias)</label>
                 <div className="input-wrap">
-                  <span className="input-icon">⏳</span>
                   <input className="agro-input" type="number" placeholder="Ex: 21" value={carenciaDias} onChange={e => setCarenciaDias(e.target.value)} onFocus={() => setFocusField("carencia")} onBlur={() => setFocusField(null)} />
                 </div>
               </div>
@@ -188,8 +181,7 @@ function Medicamentos({ setTela }) {
                 <div className={`field-group${focusField === "animal" ? " focused" : ""}`}>
                   <label className="field-label">Animal *</label>
                   <div className="input-wrap">
-                    <span className="input-icon">🐄</span>
-                    <select className="agro-input" style={{ paddingLeft: "42px" }} value={animalId} onChange={e => setAnimalId(e.target.value)} onFocus={() => setFocusField("animal")} onBlur={() => setFocusField(null)}>
+                    <select className="agro-input" style={{ paddingLeft: "14px" }} value={animalId} onChange={e => setAnimalId(e.target.value)} onFocus={() => setFocusField("animal")} onBlur={() => setFocusField(null)}>
                       <option value="">Selecione</option>
                       {animais.map(a => <option key={a.id} value={a.id}>#{a.brinco} {a.raca ? `· ${a.raca}` : ""}</option>)}
                     </select>
@@ -199,8 +191,7 @@ function Medicamentos({ setTela }) {
                 <div className={`field-group${focusField === "lote" ? " focused" : ""}`}>
                   <label className="field-label">Lote *</label>
                   <div className="input-wrap">
-                    <span className="input-icon">🗂️</span>
-                    <select className="agro-input" style={{ paddingLeft: "42px" }} value={loteId} onChange={e => setLoteId(e.target.value)} onFocus={() => setFocusField("lote")} onBlur={() => setFocusField(null)}>
+                    <select className="agro-input" style={{ paddingLeft: "14px" }} value={loteId} onChange={e => setLoteId(e.target.value)} onFocus={() => setFocusField("lote")} onBlur={() => setFocusField(null)}>
                       <option value="">Selecione</option>
                       {lotes.map(l => <option key={l.id} value={l.id}>{l.nome}</option>)}
                     </select>
@@ -211,7 +202,6 @@ function Medicamentos({ setTela }) {
               <div className={`field-group${focusField === "obs" ? " focused" : ""}`}>
                 <label className="field-label">Observação</label>
                 <div className="input-wrap">
-                  <span className="input-icon">📝</span>
                   <input className="agro-input" placeholder="Observações adicionais" value={observacao} onChange={e => setObservacao(e.target.value)} onFocus={() => setFocusField("obs")} onBlur={() => setFocusField(null)} />
                 </div>
               </div>
@@ -223,12 +213,12 @@ function Medicamentos({ setTela }) {
           </div>
         )}
 
-        {sucesso && !mostrarForm && <div className="sucesso-box">✅ {sucesso}</div>}
+        {sucesso && !mostrarForm && <div className="sucesso-box">{sucesso}</div>}
 
         {/* FILTROS */}
         <div className="filtros">
           <button className={`filtro-btn${filtro === "todos" ? " ativo" : ""}`} onClick={() => setFiltro("todos")}>Todos ({medicamentos.length})</button>
-          <button className={`filtro-btn${filtro === "carencia" ? " ativo" : ""}`} onClick={() => setFiltro("carencia")}>⚠️ Em carência ({emCarencia.length})</button>
+          <button className={`filtro-btn${filtro === "carencia" ? " ativo" : ""}`} onClick={() => setFiltro("carencia")}>Em carência ({emCarencia.length})</button>
         </div>
 
         {/* LISTA */}
@@ -242,7 +232,6 @@ function Medicamentos({ setTela }) {
             <div className="skeleton-list">{[1,2,3].map(i => <div key={i} className="skeleton-row" />)}</div>
           ) : filtrados.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-icon">💊</div>
               <p>Nenhum registro encontrado</p>
               <span>Clique em "+ Registrar" para começar</span>
             </div>
@@ -250,26 +239,25 @@ function Medicamentos({ setTela }) {
             filtrados.map((m, idx) => (
               <div key={m.id} className="med-item" style={{ animationDelay: `${idx * 0.04}s` }}>
                 <div className="med-item-left">
-                  <div className="med-avatar">💊</div>
                   <div>
                     <div className="med-nome">{m.nome}</div>
                     <div className="med-detalhes">
-                      {m.brinco && <span>🐄 #{m.brinco}</span>}
-                      {m.lote_nome && <span>🗂️ {m.lote_nome}</span>}
-                      {m.dose && <span>💉 {m.dose}</span>}
-                      <span>📅 {formatarData(m.data_aplicacao)}</span>
+                      {m.brinco && <span>#{m.brinco}</span>}
+                      {m.lote_nome && <span>{m.lote_nome}</span>}
+                      {m.dose && <span>{m.dose}</span>}
+                      <span>{formatarData(m.data_aplicacao)}</span>
                     </div>
                     {m.carencia_dias > 0 && (
                       <div className={`carencia-tag ${m.dias_restantes_carencia > 0 ? "ativa" : "encerrada"}`}>
                         {m.dias_restantes_carencia > 0
-                          ? `⏳ Carência: ${m.dias_restantes_carencia} dia(s) restante(s) · até ${formatarData(m.data_fim_carencia)}`
-                          : `✅ Carência encerrada em ${formatarData(m.data_fim_carencia)}`}
+                          ? `Carência: ${m.dias_restantes_carencia} dia(s) restante(s) · até ${formatarData(m.data_fim_carencia)}`
+                          : `Carência encerrada em ${formatarData(m.data_fim_carencia)}`}
                       </div>
                     )}
-                    {m.observacao && <div className="med-obs">📝 {m.observacao}</div>}
+                    {m.observacao && <div className="med-obs">{m.observacao}</div>}
                   </div>
                 </div>
-                <button className="btn-deletar" onClick={() => handleDeletar(m.id)}>🗑️</button>
+                <button className="btn-deletar" onClick={() => handleDeletar(m.id)}>Remover</button>
               </div>
             ))
           )}

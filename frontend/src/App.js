@@ -11,6 +11,7 @@ import Medicamentos from "./Pages/JS/Medicamentos";
 import Financeiro from "./Pages/JS/Financeiro";
 import Agenda from "./Pages/JS/Agenda";
 import Insumos from "./Pages/JS/Insumos";
+import SessaoPesagem from "./Pages/JS/SessaoPesagem";
 
 function App() {
   const [tela, setTela] = useState("login");
@@ -30,6 +31,7 @@ function App() {
       {tela === "financeiro"    && <Financeiro setTela={setTela} />}
       {tela === "agenda"        && <Agenda setTela={setTela} />}
       {tela === "insumos"       && <Insumos setTela={setTela} />}
+      {tela === "sessaoPesagem" && <SessaoPesagem setTela={setTela} />}
     </div>
   );
 }

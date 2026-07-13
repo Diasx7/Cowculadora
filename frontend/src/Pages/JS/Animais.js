@@ -82,10 +82,10 @@ function Animais({ setTela, setAnimalSelecionado }) {
     <div className="animais-root">
       <nav className="animais-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <span className="nav-brand-name">PesoMax</span>
         </div>
-        <button className="btn-voltar" onClick={() => setTela("perfil")}>← Voltar</button>
+        <button className="btn-voltar" onClick={() => setTela("perfil")}>Voltar</button>
       </nav>
 
       <div className="animais-content">
@@ -95,14 +95,14 @@ function Animais({ setTela, setAnimalSelecionado }) {
             <p>{animais.length} animal(is) cadastrado(s)</p>
           </div>
           <button className="btn-novo-animal" onClick={() => { setMostrarForm(!mostrarForm); setErro(""); setSucesso(""); }}>
-            {mostrarForm ? "✕ Fechar" : "+ Novo Animal"}
+            {mostrarForm ? "Fechar" : "+ Novo Animal"}
           </button>
         </div>
 
         <div className="stats-row">
-          <div className="stat-card"><div className="stat-icon">🐄</div><div className="stat-value">{animais.length}</div><div className="stat-label">Total</div></div>
-          <div className="stat-card"><div className="stat-icon">♂️</div><div className="stat-value">{machos}</div><div className="stat-label">Machos</div></div>
-          <div className="stat-card"><div className="stat-icon">♀️</div><div className="stat-value">{femeas}</div><div className="stat-label">Fêmeas</div></div>
+          <div className="stat-card"><div className="stat-value">{animais.length}</div><div className="stat-label">Total</div></div>
+          <div className="stat-card"><div className="stat-value">{machos}</div><div className="stat-label">Machos</div></div>
+          <div className="stat-card"><div className="stat-value">{femeas}</div><div className="stat-label">Fêmeas</div></div>
         </div>
 
         {mostrarForm && (
@@ -111,33 +111,29 @@ function Animais({ setTela, setAnimalSelecionado }) {
               <span className="form-card-title">Cadastrar Animal</span>
               <span className="form-badge">Novo</span>
             </div>
-            {erro && <div className="erro-box">⚠️ {erro}</div>}
+            {erro && <div className="erro-box">{erro}</div>}
             <div className="form-row">
               <div className={`field-group${focusField === "brinco" ? " focused" : ""}`}>
                 <label className="field-label">Brinco *</label>
                 <div className="input-wrap">
-                  <span className="input-icon">🏷️</span>
                   <input className="agro-input" placeholder="Ex: 001" value={brinco} onChange={(e) => setBrinco(e.target.value)} onFocus={() => setFocusField("brinco")} onBlur={() => setFocusField(null)} disabled={loading} />
                 </div>
               </div>
               <div className={`field-group${focusField === "raca" ? " focused" : ""}`}>
                 <label className="field-label">Raça</label>
                 <div className="input-wrap">
-                  <span className="input-icon">📋</span>
                   <input className="agro-input" placeholder="Ex: Nelore" value={raca} onChange={(e) => setRaca(e.target.value)} onFocus={() => setFocusField("raca")} onBlur={() => setFocusField(null)} disabled={loading} />
                 </div>
               </div>
               <div className={`field-group${focusField === "nascimento" ? " focused" : ""}`}>
                 <label className="field-label">Data de Nascimento</label>
                 <div className="input-wrap">
-                  <span className="input-icon">📅</span>
                   <input className="agro-input" type="date" value={nascimento} onChange={(e) => setNascimento(e.target.value)} onFocus={() => setFocusField("nascimento")} onBlur={() => setFocusField(null)} disabled={loading} />
                 </div>
               </div>
               <div className={`field-group${focusField === "sexo" ? " focused" : ""}`}>
                 <label className="field-label">Sexo</label>
                 <div className="input-wrap">
-                  <span className="input-icon">⚥</span>
                   <select className="agro-input select-input" value={sexo} onChange={(e) => setSexo(e.target.value)} onFocus={() => setFocusField("sexo")} onBlur={() => setFocusField(null)} disabled={loading}>
                     <option value="">Selecione</option>
                     <option value="Macho">Macho</option>
@@ -152,7 +148,7 @@ function Animais({ setTela, setAnimalSelecionado }) {
           </div>
         )}
 
-        {sucesso && !mostrarForm && <div className="sucesso-box">✅ {sucesso}</div>}
+        {sucesso && !mostrarForm && <div className="sucesso-box">{sucesso}</div>}
 
         <div className="lista-card">
           <div className="lista-header">
@@ -163,7 +159,6 @@ function Animais({ setTela, setAnimalSelecionado }) {
             <div className="skeleton-list">{[1,2,3].map((i) => <div key={i} className="skeleton-row" />)}</div>
           ) : animais.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-icon">🐄</div>
               <p>Nenhum animal cadastrado ainda</p>
               <span>Clique em "Novo Animal" para começar</span>
             </div>
@@ -171,19 +166,19 @@ function Animais({ setTela, setAnimalSelecionado }) {
             animais.map((animal, index) => (
               <div key={animal.id} className="animal-item" style={{ animationDelay: `${index * 0.05}s`, cursor: "pointer" }} onClick={() => verHistorico(animal)}>
                 <div className="animal-item-left">
-                  <div className="animal-avatar">{animal.sexo === "Fêmea" ? "🐄" : "🐂"}</div>
+                  <div className="animal-avatar">{animal.sexo === "Fêmea" ? "F" : "M"}</div>
                   <div className="animal-info">
                     <div className="animal-brinco">#{animal.brinco}</div>
                     <div className="animal-detalhes">
-                      <span className="animal-detalhe">📋 {animal.raca || "Raça não informada"}</span>
-                      <span className="animal-detalhe">📅 {calcularIdade(animal.nascimento)}</span>
+                      <span className="animal-detalhe">{animal.raca || "Raça não informada"}</span>
+                      <span className="animal-detalhe">{calcularIdade(animal.nascimento)}</span>
                     </div>
                   </div>
                 </div>
                 <div className="animal-item-right">
                   {animal.sexo && <span className="sexo-badge">{animal.sexo}</span>}
-                  <span style={{ fontSize: "12px", color: "#3a4232" }}>Ver histórico →</span>
-                  <button className="btn-deletar" onClick={(e) => handleDeletar(e, animal.id)} title="Remover animal">🗑️</button>
+                  <span style={{ fontSize: "12px", color: "#3a4232" }}>Ver histórico</span>
+                  <button className="btn-deletar" onClick={(e) => handleDeletar(e, animal.id)} title="Remover animal">Remover</button>
                 </div>
               </div>
             ))

@@ -120,10 +120,10 @@ function Financeiro({ setTela }) {
     <div className="fin-root">
       <nav className="fin-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <span className="nav-brand-name">PesoMax</span>
         </div>
-        <button className="btn-voltar" onClick={() => setTela("perfil")}>← Voltar</button>
+        <button className="btn-voltar" onClick={() => setTela("perfil")}>Voltar</button>
       </nav>
 
       <div className="fin-content">
@@ -138,13 +138,13 @@ function Financeiro({ setTela }) {
         <div className="cotacao-card">
           <div className="cotacao-header">
             <div>
-              <div className="cotacao-titulo">💹 Cotação da Arroba</div>
+              <div className="cotacao-titulo">Cotação da Arroba</div>
               {cotacao?.fonte && (
                 <div className="cotacao-fonte">Fonte: {cotacao.fonte} · {cotacao.data}</div>
               )}
             </div>
             <button className="btn-atualizar" onClick={buscarCotacao} disabled={carregandoCotacao}>
-              {carregandoCotacao ? "Buscando..." : "🔄 Atualizar"}
+              {carregandoCotacao ? "Buscando..." : "Atualizar"}
             </button>
           </div>
 
@@ -184,17 +184,14 @@ function Financeiro({ setTela }) {
         {/* RESUMO */}
         <div className="stats-row">
           <div className="stat-card">
-            <div className="stat-icon">🐄</div>
             <div className="stat-value">{animais.length}</div>
             <div className="stat-label">Animais</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">💰</div>
             <div className="stat-value-small">{formatarMoeda(totalValorRebanho)}</div>
             <div className="stat-label">Valor do rebanho</div>
           </div>
           <div className={`stat-card${totalLucro >= 0 ? "" : " negativo"}`}>
-            <div className="stat-icon">{totalLucro >= 0 ? "📈" : "📉"}</div>
             <div className="stat-value-small" style={{ color: totalLucro >= 0 ? "#6daa28" : "#e05252" }}>
               {totalLucro >= 0 ? "+" : ""}{formatarMoeda(totalLucro)}
             </div>
@@ -213,7 +210,6 @@ function Financeiro({ setTela }) {
             <div className="skeleton-list">{[1,2,3].map(i => <div key={i} className="skeleton-row" />)}</div>
           ) : animais.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-icon">💰</div>
               <p>Nenhum animal cadastrado</p>
             </div>
           ) : (
@@ -229,14 +225,13 @@ function Financeiro({ setTela }) {
                 <div key={animal.id} className="animal-fin-card">
                   <div className="animal-fin-header">
                     <div className="animal-fin-id">
-                      <span className="animal-avatar">{animal.sexo === "Fêmea" ? "🐄" : "🐂"}</span>
                       <div>
                         <div className="animal-brinco">#{animal.brinco}</div>
                         <div className="animal-raca">{animal.raca || "Raça não informada"}</div>
                       </div>
                     </div>
                     <button className="btn-editar" onClick={() => editando ? setAnimalEditando(null) : abrirEdicao(animal)}>
-                      {editando ? "✕ Fechar" : "✏️ Editar"}
+                      {editando ? "Fechar" : "Editar"}
                     </button>
                   </div>
 

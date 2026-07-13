@@ -43,10 +43,10 @@ function Dashboard({ setTela }) {
     <div className="dashboard-root">
       <nav className="dashboard-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <span className="nav-brand-name">PesoMax</span>
         </div>
-        <button className="btn-voltar" onClick={() => setTela("perfil")}>← Voltar</button>
+        <button className="btn-voltar" onClick={() => setTela("perfil")}>Voltar</button>
       </nav>
 
       <div className="dashboard-content">
@@ -67,28 +67,28 @@ function Dashboard({ setTela }) {
             {totalAlertas > 0 && (
               <div className="alertas-card">
                 <div className="alertas-header">
-                  <span className="alertas-titulo">⚠️ Alertas ({totalAlertas})</span>
+                  <span className="alertas-titulo">Alertas ({totalAlertas})</span>
                 </div>
                 <div className="alertas-lista">
                   {dados.semPesar > 0 && (
                     <div className="alerta-item" onClick={() => setTela("animais")} style={{ cursor: "pointer" }}>
                       <span className="alerta-dot vermelho" />
                       <span><strong>{dados.semPesar}</strong> animal(is) sem pesar há mais de 30 dias</span>
-                      <span className="alerta-link">Ver →</span>
+                      <span className="alerta-link">Ver</span>
                     </div>
                   )}
                   {dados.gmdBaixo > 0 && (
                     <div className="alerta-item" onClick={() => setTela("animais")} style={{ cursor: "pointer" }}>
                       <span className="alerta-dot laranja" />
                       <span><strong>{dados.gmdBaixo}</strong> animal(is) com GMD abaixo de 0.5 kg/dia</span>
-                      <span className="alerta-link">Ver →</span>
+                      <span className="alerta-link">Ver</span>
                     </div>
                   )}
                   {dados.emCarencia > 0 && (
                     <div className="alerta-item" onClick={() => setTela("medicamentos")} style={{ cursor: "pointer" }}>
                       <span className="alerta-dot amarelo" />
                       <span><strong>{dados.emCarencia}</strong> animal(is) em carência de medicamento</span>
-                      <span className="alerta-link">Ver →</span>
+                      <span className="alerta-link">Ver</span>
                     </div>
                   )}
                 </div>
@@ -98,25 +98,21 @@ function Dashboard({ setTela }) {
             {/* CARDS PRINCIPAIS */}
             <div className="main-cards">
               <div className="main-card" style={{ cursor: "pointer" }} onClick={() => setTela("animais")}>
-                <div className="card-icon">🐄</div>
                 <div className="card-value">{dados?.totalAnimais ?? "—"}</div>
                 <div className="card-label">Total de animais</div>
                 <div className="card-sub">Clique para gerenciar</div>
               </div>
               <div className="main-card" style={{ cursor: "pointer" }} onClick={() => setTela("pesagem")}>
-                <div className="card-icon">⚖️</div>
                 <div className="card-value">{dados?.totalPesagens ?? "—"}</div>
                 <div className="card-label">Total de pesagens</div>
                 <div className="card-sub">Clique para registrar</div>
               </div>
               <div className="main-card">
-                <div className="card-icon">📊</div>
                 <div className="card-value">{dados?.pesoMedio ?? "—"}</div>
                 <div className="card-label">Peso médio (kg)</div>
                 <div className="card-sub">Média geral do rebanho</div>
               </div>
               <div className="main-card" style={{ cursor: "pointer" }} onClick={() => setTela("medicamentos")}>
-                <div className="card-icon">💊</div>
                 <div className="card-value" style={{ color: dados?.emCarencia > 0 ? "#e09a28" : "#6daa28" }}>{dados?.emCarencia ?? 0}</div>
                 <div className="card-label">Em carência</div>
                 <div className="card-sub">{dados?.emCarencia > 0 ? "Atenção necessária" : "Nenhuma carência ativa"}</div>
@@ -126,17 +122,14 @@ function Dashboard({ setTela }) {
             {/* STATS SECUNDÁRIOS */}
             <div className="secondary-cards">
               <div className="secondary-card">
-                <div className="secondary-icon">📈</div>
                 <div className="secondary-value">{dados?.gmdMedio ?? "—"}</div>
                 <div className="secondary-label">GMD médio (kg/dia)</div>
               </div>
               <div className="secondary-card">
-                <div className="secondary-icon">♂️</div>
                 <div className="secondary-value">{machos}</div>
                 <div className="secondary-label">Machos</div>
               </div>
               <div className="secondary-card">
-                <div className="secondary-icon">♀️</div>
                 <div className="secondary-value">{femeas}</div>
                 <div className="secondary-label">Fêmeas</div>
               </div>
@@ -148,7 +141,6 @@ function Dashboard({ setTela }) {
                 <div className="section-title">Última Pesagem</div>
                 <div className="ultima-info">
                   <div className="ultima-animal">
-                    <div className="ultima-avatar">🐄</div>
                     <div>
                       <div className="ultima-nome">
                         {dados.ultimaPesagem.brinco ? `#${dados.ultimaPesagem.brinco}` : "Sem identificação"}
@@ -173,14 +165,14 @@ function Dashboard({ setTela }) {
                   {dados.ultimosMedicamentos.map((m, i) => (
                     <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <div>
-                        <span style={{ fontSize: 14, fontWeight: 600, color: "#c8c4bc" }}>💊 {m.nome}</span>
+                        <span style={{ fontSize: 14, fontWeight: 600, color: "#c8c4bc" }}>{m.nome}</span>
                         <span style={{ fontSize: 12, color: "#4a5640", marginLeft: 8 }}>
                           {m.brinco ? `#${m.brinco}` : m.lote_nome || "—"} · {formatarDataSimples(m.data_aplicacao)}
                         </span>
                       </div>
                       {m.carencia_dias > 0 && m.dias_restantes_carencia > 0 && (
                         <span style={{ fontSize: 11, color: "#e09a28", background: "rgba(224,154,40,0.1)", border: "1px solid rgba(224,154,40,0.25)", borderRadius: 20, padding: "2px 8px" }}>
-                          ⏳ {m.dias_restantes_carencia}d restantes
+                          {m.dias_restantes_carencia}d restantes
                         </span>
                       )}
                     </div>
@@ -195,13 +187,13 @@ function Dashboard({ setTela }) {
                 <div className="section-title">Distribuição do Rebanho</div>
                 <div className="dist-row">
                   {[
-                    { label: "Machos", valor: machos, icon: "♂️" },
-                    { label: "Fêmeas", valor: femeas, icon: "♀️" },
-                    { label: "Não informado", valor: totalAnimais - machos - femeas, icon: "❓" },
+                    { label: "Machos", valor: machos },
+                    { label: "Fêmeas", valor: femeas },
+                    { label: "Não informado", valor: totalAnimais - machos - femeas },
                   ].filter(d => d.valor > 0).map((d) => (
                     <div className="dist-item" key={d.label}>
                       <div className="dist-label-row">
-                        <span className="dist-label">{d.icon} {d.label}</span>
+                        <span className="dist-label">{d.label}</span>
                         <span className="dist-count">{d.valor} ({Math.round((d.valor / totalAnimais) * 100)}%)</span>
                       </div>
                       <div className="dist-bar-bg">

@@ -119,10 +119,10 @@ function Insumos({ setTela }) {
     <div className="ins-root">
       <nav className="ins-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <span className="nav-brand-name">PesoMax</span>
         </div>
-        <button className="btn-voltar" onClick={() => setTela("perfil")}>← Voltar</button>
+        <button className="btn-voltar" onClick={() => setTela("perfil")}>Voltar</button>
       </nav>
 
       <div className="ins-content">
@@ -136,17 +136,14 @@ function Insumos({ setTela }) {
         {/* STATS */}
         <div className="stats-row">
           <div className="stat-card">
-            <div className="stat-icon">🌾</div>
             <div className="stat-value">{insumos.length}</div>
             <div className="stat-label">Tipos cadastrados</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">📋</div>
             <div className="stat-value">{consumos.length}</div>
             <div className="stat-label">Registros de consumo</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">💸</div>
             <div className="stat-value-small">{formatarMoeda(custoTotal)}</div>
             <div className="stat-label">Custo total</div>
           </div>
@@ -154,8 +151,8 @@ function Insumos({ setTela }) {
 
         {/* ABAS */}
         <div className="abas">
-          <button className={`aba-btn${aba === "consumos" ? " ativo" : ""}`} onClick={() => setAba("consumos")}>📋 Consumos</button>
-          <button className={`aba-btn${aba === "insumos" ? " ativo" : ""}`} onClick={() => setAba("insumos")}>🌾 Insumos Cadastrados</button>
+          <button className={`aba-btn${aba === "consumos" ? " ativo" : ""}`} onClick={() => setAba("consumos")}>Consumos</button>
+          <button className={`aba-btn${aba === "insumos" ? " ativo" : ""}`} onClick={() => setAba("insumos")}>Insumos Cadastrados</button>
         </div>
 
         {/* ABA INSUMOS */}
@@ -163,7 +160,7 @@ function Insumos({ setTela }) {
           <>
             <div style={{ marginBottom: 16 }}>
               <button className="btn-novo" onClick={() => { setMostrarFormInsumo(!mostrarFormInsumo); setErro(""); }}>
-                {mostrarFormInsumo ? "✕ Fechar" : "+ Novo Insumo"}
+                {mostrarFormInsumo ? "Fechar" : "+ Novo Insumo"}
               </button>
             </div>
 
@@ -173,20 +170,18 @@ function Insumos({ setTela }) {
                   <span className="form-card-title">Cadastrar Insumo</span>
                   <span className="form-badge">Novo</span>
                 </div>
-                {erro && <div className="erro-box">⚠️ {erro}</div>}
+                {erro && <div className="erro-box">{erro}</div>}
                 <div className="form-row">
                   <div className={`field-group${focusField === "nome" ? " focused" : ""}`}>
                     <label className="field-label">Nome *</label>
                     <div className="input-wrap">
-                      <span className="input-icon">🌾</span>
                       <input className="agro-input" placeholder="Ex: Ração, Silagem" value={nome} onChange={e => setNome(e.target.value)} onFocus={() => setFocusField("nome")} onBlur={() => setFocusField(null)} />
                     </div>
                   </div>
                   <div className={`field-group${focusField === "unidade" ? " focused" : ""}`}>
                     <label className="field-label">Unidade *</label>
                     <div className="input-wrap">
-                      <span className="input-icon">📏</span>
-                      <select className="agro-input" style={{ paddingLeft: 42 }} value={unidade} onChange={e => setUnidade(e.target.value)} onFocus={() => setFocusField("unidade")} onBlur={() => setFocusField(null)}>
+                      <select className="agro-input" style={{ paddingLeft: 14 }} value={unidade} onChange={e => setUnidade(e.target.value)} onFocus={() => setFocusField("unidade")} onBlur={() => setFocusField(null)}>
                         {UNIDADES.map(u => <option key={u} value={u}>{u}</option>)}
                       </select>
                     </div>
@@ -194,7 +189,6 @@ function Insumos({ setTela }) {
                   <div className={`field-group${focusField === "preco" ? " focused" : ""}`}>
                     <label className="field-label">Preço por {unidade} (R$) *</label>
                     <div className="input-wrap">
-                      <span className="input-icon">💰</span>
                       <input className="agro-input" type="number" placeholder="Ex: 1.50" value={precoUnitario} onChange={e => setPrecoUnitario(e.target.value)} onFocus={() => setFocusField("preco")} onBlur={() => setFocusField(null)} />
                     </div>
                   </div>
@@ -212,7 +206,6 @@ function Insumos({ setTela }) {
               </div>
               {insumos.length === 0 ? (
                 <div className="empty-state">
-                  <div className="empty-icon">🌾</div>
                   <p>Nenhum insumo cadastrado</p>
                   <span>Cadastre ração, silagem e outros</span>
                 </div>
@@ -220,13 +213,13 @@ function Insumos({ setTela }) {
                 insumos.map(ins => (
                   <div key={ins.id} className="insumo-item">
                     <div className="insumo-info">
-                      <div className="insumo-nome">🌾 {ins.nome}</div>
+                      <div className="insumo-nome">{ins.nome}</div>
                       <div className="insumo-detalhes">
                         <span>{ins.unidade}</span>
                         <span>{formatarMoeda(ins.preco_unitario)} / {ins.unidade}</span>
                       </div>
                     </div>
-                    <button className="btn-deletar" onClick={() => handleDeletarInsumo(ins.id)}>🗑️</button>
+                    <button className="btn-deletar" onClick={() => handleDeletarInsumo(ins.id)}>Remover</button>
                   </div>
                 ))
               )}
@@ -239,7 +232,7 @@ function Insumos({ setTela }) {
           <>
             <div style={{ marginBottom: 16 }}>
               <button className="btn-novo" onClick={() => { setMostrarFormConsumo(!mostrarFormConsumo); setErro(""); }}>
-                {mostrarFormConsumo ? "✕ Fechar" : "+ Registrar Consumo"}
+                {mostrarFormConsumo ? "Fechar" : "+ Registrar Consumo"}
               </button>
             </div>
 
@@ -249,20 +242,19 @@ function Insumos({ setTela }) {
                   <span className="form-card-title">Registrar Consumo</span>
                   <span className="form-badge">Novo</span>
                 </div>
-                {erro && <div className="erro-box">⚠️ {erro}</div>}
+                {erro && <div className="erro-box">{erro}</div>}
 
                 <div className="tipo-toggle" style={{ marginBottom: 16 }}>
-                  <button className={`tipo-btn${tipoAlvo === "animal" ? " ativo" : ""}`} onClick={() => setTipoAlvo("animal")}>🐄 Por Animal</button>
-                  <button className={`tipo-btn${tipoAlvo === "lote" ? " ativo" : ""}`} onClick={() => setTipoAlvo("lote")}>🗂️ Por Lote</button>
-                  <button className={`tipo-btn${tipoAlvo === "geral" ? " ativo" : ""}`} onClick={() => setTipoAlvo("geral")}>🌾 Geral</button>
+                  <button className={`tipo-btn${tipoAlvo === "animal" ? " ativo" : ""}`} onClick={() => setTipoAlvo("animal")}>Por Animal</button>
+                  <button className={`tipo-btn${tipoAlvo === "lote" ? " ativo" : ""}`} onClick={() => setTipoAlvo("lote")}>Por Lote</button>
+                  <button className={`tipo-btn${tipoAlvo === "geral" ? " ativo" : ""}`} onClick={() => setTipoAlvo("geral")}>Geral</button>
                 </div>
 
                 <div className="form-row">
                   <div className={`field-group${focusField === "insumo" ? " focused" : ""}`}>
                     <label className="field-label">Insumo *</label>
                     <div className="input-wrap">
-                      <span className="input-icon">🌾</span>
-                      <select className="agro-input" style={{ paddingLeft: 42 }} value={insumoId} onChange={e => setInsumoId(e.target.value)} onFocus={() => setFocusField("insumo")} onBlur={() => setFocusField(null)}>
+                      <select className="agro-input" style={{ paddingLeft: 14 }} value={insumoId} onChange={e => setInsumoId(e.target.value)} onFocus={() => setFocusField("insumo")} onBlur={() => setFocusField(null)}>
                         <option value="">Selecione</option>
                         {insumos.map(i => <option key={i.id} value={i.id}>{i.nome} ({i.unidade})</option>)}
                       </select>
@@ -271,21 +263,18 @@ function Insumos({ setTela }) {
                   <div className={`field-group${focusField === "qtd" ? " focused" : ""}`}>
                     <label className="field-label">Quantidade/dia *</label>
                     <div className="input-wrap">
-                      <span className="input-icon">📊</span>
                       <input className="agro-input" type="number" placeholder="Ex: 8.5" value={quantidadeDia} onChange={e => setQuantidadeDia(e.target.value)} onFocus={() => setFocusField("qtd")} onBlur={() => setFocusField(null)} />
                     </div>
                   </div>
                   <div className={`field-group${focusField === "inicio" ? " focused" : ""}`}>
                     <label className="field-label">Data Início *</label>
                     <div className="input-wrap">
-                      <span className="input-icon">📅</span>
                       <input className="agro-input" type="date" value={dataInicio} onChange={e => setDataInicio(e.target.value)} onFocus={() => setFocusField("inicio")} onBlur={() => setFocusField(null)} />
                     </div>
                   </div>
                   <div className={`field-group${focusField === "fim" ? " focused" : ""}`}>
                     <label className="field-label">Data Fim</label>
                     <div className="input-wrap">
-                      <span className="input-icon">📅</span>
                       <input className="agro-input" type="date" value={dataFim} onChange={e => setDataFim(e.target.value)} onFocus={() => setFocusField("fim")} onBlur={() => setFocusField(null)} />
                     </div>
                   </div>
@@ -293,8 +282,7 @@ function Insumos({ setTela }) {
                     <div className="field-group">
                       <label className="field-label">Animal</label>
                       <div className="input-wrap">
-                        <span className="input-icon">🐄</span>
-                        <select className="agro-input" style={{ paddingLeft: 42 }} value={animalId} onChange={e => setAnimalId(e.target.value)}>
+                        <select className="agro-input" style={{ paddingLeft: 14 }} value={animalId} onChange={e => setAnimalId(e.target.value)}>
                           <option value="">Selecione</option>
                           {animais.map(a => <option key={a.id} value={a.id}>#{a.brinco} {a.raca ? `· ${a.raca}` : ""}</option>)}
                         </select>
@@ -305,8 +293,7 @@ function Insumos({ setTela }) {
                     <div className="field-group">
                       <label className="field-label">Lote</label>
                       <div className="input-wrap">
-                        <span className="input-icon">🗂️</span>
-                        <select className="agro-input" style={{ paddingLeft: 42 }} value={loteId} onChange={e => setLoteId(e.target.value)}>
+                        <select className="agro-input" style={{ paddingLeft: 14 }} value={loteId} onChange={e => setLoteId(e.target.value)}>
                           <option value="">Selecione</option>
                           {lotes.map(l => <option key={l.id} value={l.id}>{l.nome}</option>)}
                         </select>
@@ -316,7 +303,6 @@ function Insumos({ setTela }) {
                   <div className="field-group">
                     <label className="field-label">Observação</label>
                     <div className="input-wrap">
-                      <span className="input-icon">📝</span>
                       <input className="agro-input" placeholder="Observações" value={observacao} onChange={e => setObservacao(e.target.value)} />
                     </div>
                   </div>
@@ -336,7 +322,6 @@ function Insumos({ setTela }) {
                 <div className="skeleton-list">{[1,2,3].map(i => <div key={i} className="skeleton-row" />)}</div>
               ) : consumos.length === 0 ? (
                 <div className="empty-state">
-                  <div className="empty-icon">📋</div>
                   <p>Nenhum consumo registrado</p>
                   <span>Registre o consumo de ração e outros insumos</span>
                 </div>
@@ -344,21 +329,21 @@ function Insumos({ setTela }) {
                 consumos.map((c, idx) => (
                   <div key={c.id} className="consumo-item" style={{ animationDelay: `${idx * 0.04}s` }}>
                     <div className="consumo-info">
-                      <div className="consumo-nome">🌾 {c.insumo_nome}</div>
+                      <div className="consumo-nome">{c.insumo_nome}</div>
                       <div className="consumo-detalhes">
-                        {c.brinco && <span>🐄 #{c.brinco}</span>}
-                        {c.lote_nome && <span>🗂️ {c.lote_nome}</span>}
-                        <span>📊 {c.quantidade_dia} {c.unidade}/dia</span>
-                        <span>📅 {formatarData(c.data_inicio)} {c.data_fim ? `→ ${formatarData(c.data_fim)}` : "→ hoje"}</span>
-                        <span>⏱️ {c.dias_total} dias</span>
+                        {c.brinco && <span>#{c.brinco}</span>}
+                        {c.lote_nome && <span>{c.lote_nome}</span>}
+                        <span>{c.quantidade_dia} {c.unidade}/dia</span>
+                        <span>{formatarData(c.data_inicio)} {c.data_fim ? `- ${formatarData(c.data_fim)}` : "- hoje"}</span>
+                        <span>{c.dias_total} dias</span>
                       </div>
                       <div className="consumo-custos">
                         <span className="custo-item">Total: <strong>{Number(c.quantidade_total).toFixed(1)} {c.unidade}</strong></span>
                         <span className="custo-item custo-destaque">Custo: <strong>{formatarMoeda(c.custo_total)}</strong></span>
                       </div>
-                      {c.observacao && <div className="consumo-obs">📝 {c.observacao}</div>}
+                      {c.observacao && <div className="consumo-obs">{c.observacao}</div>}
                     </div>
-                    <button className="btn-deletar" onClick={() => handleDeletarConsumo(c.id)}>🗑️</button>
+                    <button className="btn-deletar" onClick={() => handleDeletarConsumo(c.id)}>Remover</button>
                   </div>
                 ))
               )}

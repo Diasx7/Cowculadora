@@ -90,11 +90,11 @@ function Pesagem({ setTela }) {
       {/* NAV */}
       <nav className="pesagem-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <div className="nav-brand-name">PesoMax</div>
         </div>
         <button className="btn-voltar" onClick={() => setTela("perfil")}>
-          ← Voltar
+          Voltar
         </button>
       </nav>
 
@@ -107,12 +107,11 @@ function Pesagem({ setTela }) {
         {/* STATS */}
         <div className="stats-row">
           {[
-            { label: "Total de registros", value: totalRegistros, icon: "📋" },
-            { label: "Peso médio (kg)",    value: pesoMedio,      icon: "📊" },
-            { label: "Maior peso (kg)",    value: maiorPeso,      icon: "🏆" },
+            { label: "Total de registros", value: totalRegistros },
+            { label: "Peso médio (kg)",    value: pesoMedio },
+            { label: "Maior peso (kg)",    value: maiorPeso },
           ].map((s) => (
             <div className="stat-card" key={s.label}>
-              <div className="stat-icon">{s.icon}</div>
               <div className="stat-value">{s.value}</div>
               <div className="stat-label">{s.label}</div>
             </div>
@@ -134,13 +133,12 @@ function Pesagem({ setTela }) {
             padding: "11px 16px",
             marginBottom: "18px",
             fontSize: "13px"
-          }}>⚠️ {erro}</div>}
+          }}>{erro}</div>}
 
           <div className="form-row">
             <div className={`field-group${focusPeso ? " focused" : ""}`}>
               <label className="field-label">Peso (kg)</label>
               <div className="input-wrap">
-                <span className="input-icon">⚖️</span>
                 <input
                   className="agro-input"
                   type="number"
@@ -156,10 +154,9 @@ function Pesagem({ setTela }) {
             <div className={`field-group${focusAnimal ? " focused" : ""}`}>
               <label className="field-label">Animal</label>
               <div className="input-wrap">
-                <span className="input-icon">🐄</span>
                 <select
                   className="agro-input"
-                  style={{ paddingLeft: "42px", cursor: "pointer" }}
+                  style={{ paddingLeft: "14px", cursor: "pointer" }}
                   value={animalId}
                   onChange={(e) => setAnimalId(e.target.value)}
                   onFocus={() => setFocusAnimal(true)}
@@ -175,7 +172,7 @@ function Pesagem({ setTela }) {
               </div>
               {animais.length === 0 && (
                 <span style={{ fontSize: "11px", color: "#e09a28", marginTop: "5px" }}>
-                  ⚠️ Nenhum animal cadastrado. <span style={{ cursor: "pointer", textDecoration: "underline" }} onClick={() => setTela("animais")}>Cadastrar agora</span>
+                  Nenhum animal cadastrado. <span style={{ cursor: "pointer", textDecoration: "underline" }} onClick={() => setTela("animais")}>Cadastrar agora</span>
                 </span>
               )}
             </div>
@@ -202,7 +199,6 @@ function Pesagem({ setTela }) {
             </div>
           ) : pesagens.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-icon">🐄</div>
               <p>Nenhuma pesagem registrada ainda.</p>
               <span>Use o formulário acima para começar.</span>
             </div>

@@ -26,10 +26,10 @@ function Login({ setTela }) {
     } catch (err) {
       console.error("Erro no login:", err);
       if (err.response) {
-        // Servidor respondeu com erro (4xx, 5xx)
+        // servidor respondeu com erro (4xx, 5xx)
         setErro(err.response.data || "Credenciais inválidas. Tente novamente.");
       } else if (err.request) {
-        // Requisição saiu mas sem resposta (API fora do ar, CORS, etc.)
+        // requisição saiu mas sem resposta (API fora do ar, CORS, etc.)
         setErro("Não foi possível conectar ao servidor. Verifique se a API está rodando.");
       } else {
         setErro("Erro inesperado. Tente novamente.");
@@ -48,7 +48,7 @@ function Login({ setTela }) {
       <div className="login-wrapper">
 
         <div className="login-brand">
-          <div className="brand-icon">⚖️</div>
+          <div className="brand-icon">PM</div>
           <div className="brand-title">PesoMax</div>
           <div className="brand-subtitle">Balança de Confinamento</div>
         </div>
@@ -61,14 +61,13 @@ function Login({ setTela }) {
 
           {erro && (
             <div className="erro-box">
-              ⚠️ {erro}
+              {erro}
             </div>
           )}
 
           <div className={`field-group${focusEmail ? " focused" : ""}`}>
             <label className="field-label">E-mail</label>
             <div className="input-wrap">
-              <span className="input-icon">✉</span>
               <input
                 className="agro-input"
                 type="email"
@@ -87,7 +86,6 @@ function Login({ setTela }) {
           <div className={`field-group${focusSenha ? " focused" : ""}`}>
             <label className="field-label">Senha</label>
             <div className="input-wrap">
-              <span className="input-icon">🔒</span>
               <input
                 className="agro-input"
                 type="password"

@@ -93,7 +93,7 @@ function Lotes({ setTela }) {
   async function moverAnimal(animalId, loteId) {
     try {
       await api.post("/lotes/atribuir", { animalId, loteId }, { headers });
-      // Recarrega tudo
+      // recarrega tudo
       buscarLotes();
       buscarAnimaisSemLote();
       setAnimaisDoLote({});
@@ -110,10 +110,10 @@ function Lotes({ setTela }) {
     <div className="lotes-root">
       <nav className="lotes-nav">
         <div className="nav-brand">
-          <div className="nav-brand-icon">⚖️</div>
+          <div className="nav-brand-icon">PM</div>
           <span className="nav-brand-name">PesoMax</span>
         </div>
-        <button className="btn-voltar" onClick={() => setTela("perfil")}>← Voltar</button>
+        <button className="btn-voltar" onClick={() => setTela("perfil")}>Voltar</button>
       </nav>
 
       <div className="lotes-content">
@@ -123,24 +123,21 @@ function Lotes({ setTela }) {
             <p>{lotes.length} lote(s) cadastrado(s)</p>
           </div>
           <button className="btn-novo-lote" onClick={() => { setMostrarForm(!mostrarForm); setErro(""); setSucesso(""); }}>
-            {mostrarForm ? "✕ Fechar" : "+ Novo Lote"}
+            {mostrarForm ? "Fechar" : "+ Novo Lote"}
           </button>
         </div>
 
         {/* STATS */}
         <div className="stats-row">
           <div className="stat-card">
-            <div className="stat-icon">🗂️</div>
             <div className="stat-value">{lotes.length}</div>
             <div className="stat-label">Total de lotes</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">🐄</div>
             <div className="stat-value">{lotes.reduce((acc, l) => acc + Number(l.total_animais), 0)}</div>
             <div className="stat-label">Animais em lotes</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">🔓</div>
             <div className="stat-value">{animaisSemLote.length}</div>
             <div className="stat-label">Sem lote</div>
           </div>
@@ -153,19 +150,17 @@ function Lotes({ setTela }) {
               <span className="form-card-title">Criar Lote</span>
               <span className="form-badge">Novo</span>
             </div>
-            {erro && <div className="erro-box">⚠️ {erro}</div>}
+            {erro && <div className="erro-box">{erro}</div>}
             <div className="form-row">
               <div className={`field-group${focusField === "nome" ? " focused" : ""}`}>
                 <label className="field-label">Nome *</label>
                 <div className="input-wrap">
-                  <span className="input-icon">🗂️</span>
                   <input className="agro-input" placeholder="Ex: Confinamento A" value={nome} onChange={(e) => setNome(e.target.value)} onFocus={() => setFocusField("nome")} onBlur={() => setFocusField(null)} disabled={loading} />
                 </div>
               </div>
               <div className={`field-group${focusField === "descricao" ? " focused" : ""}`}>
                 <label className="field-label">Descrição</label>
                 <div className="input-wrap">
-                  <span className="input-icon">📝</span>
                   <input className="agro-input" placeholder="Ex: Pasto norte, engorda" value={descricao} onChange={(e) => setDescricao(e.target.value)} onFocus={() => setFocusField("descricao")} onBlur={() => setFocusField(null)} disabled={loading} />
                 </div>
               </div>
@@ -176,7 +171,7 @@ function Lotes({ setTela }) {
           </div>
         )}
 
-        {sucesso && !mostrarForm && <div className="sucesso-box">✅ {sucesso}</div>}
+        {sucesso && !mostrarForm && <div className="sucesso-box">{sucesso}</div>}
 
         {/* LISTA DE LOTES */}
         <div className="lista-card">
@@ -189,7 +184,6 @@ function Lotes({ setTela }) {
             <div className="skeleton-list">{[1,2,3].map(i => <div key={i} className="skeleton-row" />)}</div>
           ) : lotes.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-icon">🗂️</div>
               <p>Nenhum lote criado ainda</p>
               <span>Clique em "+ Novo Lote" para começar</span>
             </div>
@@ -198,7 +192,6 @@ function Lotes({ setTela }) {
               <div key={lote.id}>
                 <div className="lote-item" onClick={() => expandirLote(lote.id)}>
                   <div className="lote-item-left">
-                    <div className="lote-avatar">🗂️</div>
                     <div>
                       <div className="lote-nome">{lote.nome}</div>
                       <div className="lote-desc">{lote.descricao || "Sem descrição"} · {lote.total_animais} animal(is)</div>
@@ -206,7 +199,7 @@ function Lotes({ setTela }) {
                   </div>
                   <div className="lote-item-right">
                     <span className="lote-chevron">{loteExpandido === lote.id ? "▲" : "▼"}</span>
-                    <button className="btn-deletar" onClick={(e) => handleDeletar(e, lote.id)}>🗑️</button>
+                    <button className="btn-deletar" onClick={(e) => handleDeletar(e, lote.id)}>Remover</button>
                   </div>
                 </div>
 
@@ -218,7 +211,7 @@ function Lotes({ setTela }) {
                     ) : (
                       (animaisDoLote[lote.id] || []).map(animal => (
                         <div key={animal.id} className="lote-animal-item">
-                          <span>{animal.sexo === "Fêmea" ? "🐄" : "🐂"} #{animal.brinco} {animal.raca ? `· ${animal.raca}` : ""}</span>
+                          <span>#{animal.brinco} {animal.raca ? `· ${animal.raca}` : ""}</span>
                           <button className="btn-remover-lote" onClick={() => moverAnimal(animal.id, null)}>Remover do lote</button>
                         </div>
                       ))
@@ -239,7 +232,7 @@ function Lotes({ setTela }) {
             </div>
             {animaisSemLote.map(animal => (
               <div key={animal.id} className="lote-animal-item" style={{ padding: "14px 28px" }}>
-                <span>{animal.sexo === "Fêmea" ? "🐄" : "🐂"} #{animal.brinco} {animal.raca ? `· ${animal.raca}` : ""}</span>
+                <span>#{animal.brinco} {animal.raca ? `· ${animal.raca}` : ""}</span>
                 <select
                   className="select-lote"
                   defaultValue=""
