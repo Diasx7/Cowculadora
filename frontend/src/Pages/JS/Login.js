@@ -26,8 +26,8 @@ function Login({ setTela }) {
     } catch (err) {
       console.error("Erro no login:", err);
       if (err.response) {
-        // servidor respondeu com erro (4xx, 5xx)
-        setErro(err.response.data || "Credenciais inválidas. Tente novamente.");
+        // servidor respondeu com erro (4xx, 5xx) - o corpo vem como {error: "..."}, nunca renderiza o objeto direto
+        setErro(err.response?.data?.error || "Credenciais inválidas. Tente novamente.");
       } else if (err.request) {
         // requisição saiu mas sem resposta (API fora do ar, CORS, etc.)
         setErro("Não foi possível conectar ao servidor. Verifique se a API está rodando.");

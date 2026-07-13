@@ -33,7 +33,8 @@ function Cadastro({ setTela }) {
     } catch (err) {
       console.error("Erro no cadastro:", err);
       if (err.response) {
-        setErro(err.response.data || "Erro ao cadastrar. Tente novamente.");
+        // o corpo do erro vem como {error: "..."}, nunca renderiza o objeto direto
+        setErro(err.response?.data?.error || "Erro ao cadastrar. Tente novamente.");
       } else if (err.request) {
         setErro("Não foi possível conectar ao servidor. Verifique se a API está rodando.");
       } else {
