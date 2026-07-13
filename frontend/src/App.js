@@ -12,15 +12,24 @@ import Financeiro from "./Pages/JS/Financeiro";
 import Agenda from "./Pages/JS/Agenda";
 import Insumos from "./Pages/JS/Insumos";
 import SessaoPesagem from "./Pages/JS/SessaoPesagem";
+import VerificarEmail from "./Pages/JS/VerificarEmail";
+
+// se a url veio com ?token=... (link do email), abre direto na tela de verificacao
+function telaInicial() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("token") ? "verificarEmail" : "login";
+}
 
 function App() {
-  const [tela, setTela] = useState("login");
+  const [tela, setTela] = useState(telaInicial);
   const [animalSelecionado, setAnimalSelecionado] = useState(null);
+  const [tokenVerificacao] = useState(() => new URLSearchParams(window.location.search).get("token"));
 
   return (
     <div>
       {tela === "login"         && <Login setTela={setTela} />}
       {tela === "cadastro"      && <Cadastro setTela={setTela} />}
+      {tela === "verificarEmail" && <VerificarEmail setTela={setTela} token={tokenVerificacao} />}
       {tela === "perfil"        && <Perfil setTela={setTela} />}
       {tela === "pesagem"       && <Pesagem setTela={setTela} />}
       {tela === "animais"       && <Animais setTela={setTela} setAnimalSelecionado={setAnimalSelecionado} />}

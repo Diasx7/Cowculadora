@@ -10,6 +10,9 @@ function Cadastro({ setTela }) {
   const [focusField, setFocusField] = useState(null);
   const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState(false);
+  const [cadastroFeito, setCadastroFeito] = useState(false);
+  const [reenviando, setReenviando] = useState(false);
+  const [msgReenvio, setMsgReenvio] = useState("");
 
   async function handleCadastro() {
     setErro("");
@@ -27,9 +30,9 @@ function Cadastro({ setTela }) {
     setLoading(true);
     try {
       await api.post("/usuarios", { nome, email, senha });
-      // mostra o toast e so troca de tela depois - sem travar com alert nativo
+      // toast rapido de "conta criada" + troca o card pra tela de confirmar e-mail (sem redirecionar sozinho)
       setSucesso(true);
-      setTimeout(() => setTela("login"), 2000);
+      setCadastroFeito(true);
     } catch (err) {
       console.error("Erro no cadastro:", err);
       if (err.response) {
@@ -42,6 +45,19 @@ function Cadastro({ setTela }) {
       }
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleReenviar() {
+    setReenviando(true);
+    setMsgReenvio("");
+    try {
+      const res = await api.post("/reenviar-verificacao", { email });
+      setMsgReenvio(res.data.message || "Se o e-mail existir, reenviamos o link.");
+    } catch (err) {
+      setMsgReenvio("Não foi possível reenviar agora. Tente de novo em instantes.");
+    } finally {
+      setReenviando(false);
     }
   }
 
@@ -71,73 +87,97 @@ function Cadastro({ setTela }) {
         </div>
 
         <div className="cad-card">
-          <div className="steps-bar">
-            {[nome, email, senha].map((v, i) => (
-              <div key={i} className={`step-dot${v ? " active" : ""}`} />
-            ))}
-          </div>
-
-          <div className="card-heading">
-            <h2>Criar conta</h2>
-            <p>Cadastre-se e comece a pesar com precisão</p>
-          </div>
-
-          {erro && (
-            <div className="erro-box">
-              {erro}
-            </div>
-          )}
-
-          {fields.map((f) => (
-            <div key={f.id} className={`field-group${focusField === f.id ? " focused" : ""}`}>
-              <label className="field-label">{f.label}</label>
-              <div className="input-wrap">
-                <input
-                  className="agro-input"
-                  type={f.type}
-                  placeholder={f.placeholder}
-                  value={f.value}
-                  autoComplete={f.autoComplete}
-                  onChange={(e) => f.setter(e.target.value)}
-                  onFocus={() => setFocusField(f.id)}
-                  onBlur={() => setFocusField(null)}
-                  disabled={loading}
-                />
+          {cadastroFeito ? (
+            <>
+              <div className="card-heading">
+                <h2>Confirme seu e-mail</h2>
+                <p>Enviamos um link de confirmação para <strong>{email}</strong>. Verifique sua caixa de entrada (e o spam) e clique no link antes de fazer login.</p>
               </div>
-              {f.id === "senha" && senha.length > 0 && (
-                <>
-                  <div className="senha-strength">
-                    {[1, 2, 3].map((level) => (
-                      <div
-                        key={level}
-                        className={`strength-bar${senhaStrength >= level ? ` s${senhaStrength}` : ""}`}
-                      />
-                    ))}
-                  </div>
-                  <div className={`strength-label s${senhaStrength}`}>
-                    {senhaStrength === 1 ? "Senha fraca" : senhaStrength === 2 ? "Senha média" : "Senha forte"}
-                  </div>
-                </>
+
+              {msgReenvio && <div className="aviso-box">{msgReenvio}</div>}
+
+              <button className="btn-cad" onClick={handleReenviar} disabled={reenviando}>
+                <div className="btn-inner">
+                  {reenviando && <div className="spinner" />}
+                  {reenviando ? "Reenviando..." : "Reenviar e-mail"}
+                </div>
+              </button>
+
+              <div className="link-voltar" onClick={() => setTela("login")}>
+                <span>Ir para o login</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="steps-bar">
+                {[nome, email, senha].map((v, i) => (
+                  <div key={i} className={`step-dot${v ? " active" : ""}`} />
+                ))}
+              </div>
+
+              <div className="card-heading">
+                <h2>Criar conta</h2>
+                <p>Cadastre-se e comece a pesar com precisão</p>
+              </div>
+
+              {erro && (
+                <div className="erro-box">
+                  {erro}
+                </div>
               )}
-            </div>
-          ))}
 
-          <button className="btn-cad" onClick={handleCadastro} disabled={loading}>
-            <div className="btn-inner">
-              {loading && <div className="spinner" />}
-              {loading ? "Cadastrando..." : "Criar conta"}
-            </div>
-          </button>
+              {fields.map((f) => (
+                <div key={f.id} className={`field-group${focusField === f.id ? " focused" : ""}`}>
+                  <label className="field-label">{f.label}</label>
+                  <div className="input-wrap">
+                    <input
+                      className="agro-input"
+                      type={f.type}
+                      placeholder={f.placeholder}
+                      value={f.value}
+                      autoComplete={f.autoComplete}
+                      onChange={(e) => f.setter(e.target.value)}
+                      onFocus={() => setFocusField(f.id)}
+                      onBlur={() => setFocusField(null)}
+                      disabled={loading}
+                    />
+                  </div>
+                  {f.id === "senha" && senha.length > 0 && (
+                    <>
+                      <div className="senha-strength">
+                        {[1, 2, 3].map((level) => (
+                          <div
+                            key={level}
+                            className={`strength-bar${senhaStrength >= level ? ` s${senhaStrength}` : ""}`}
+                          />
+                        ))}
+                      </div>
+                      <div className={`strength-label s${senhaStrength}`}>
+                        {senhaStrength === 1 ? "Senha fraca" : senhaStrength === 2 ? "Senha média" : "Senha forte"}
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
 
-          <div className="divider">
-            <div className="divider-line" />
-            <span className="divider-text">ou</span>
-            <div className="divider-line" />
-          </div>
+              <button className="btn-cad" onClick={handleCadastro} disabled={loading}>
+                <div className="btn-inner">
+                  {loading && <div className="spinner" />}
+                  {loading ? "Cadastrando..." : "Criar conta"}
+                </div>
+              </button>
 
-          <div className="link-voltar" onClick={() => setTela("login")}>
-            Já tem conta? <span>Fazer login</span>
-          </div>
+              <div className="divider">
+                <div className="divider-line" />
+                <span className="divider-text">ou</span>
+                <div className="divider-line" />
+              </div>
+
+              <div className="link-voltar" onClick={() => setTela("login")}>
+                Já tem conta? <span>Fazer login</span>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="bottom-badge">© 2025 PesoMax · Todos os direitos reservados</div>

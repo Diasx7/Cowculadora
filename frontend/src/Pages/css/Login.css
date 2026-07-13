@@ -154,6 +154,24 @@
   font-weight: 500;
 }
 
+.aviso-box {
+  background: rgba(109,170,40,0.08);
+  border: 1px solid rgba(109,170,40,0.3);
+  color: #6daa28;
+  border-radius: 10px;
+  padding: 11px 16px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.link-reenviar {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
 .btn-login {
   width: 100%;
   margin-top: 8px;

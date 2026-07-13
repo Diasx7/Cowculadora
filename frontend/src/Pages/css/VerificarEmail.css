@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.agro-root {
+  min-height: 100vh;
+  background-color: #0d0f0a;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(74,124,30,0.18) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234a7c1e' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow', sans-serif;
+  padding: 20px;
+}
+
+.verificar-wrapper { width: 100%; max-width: 440px; }
+
+.login-brand { text-align: center; margin-bottom: 32px; }
+.brand-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 16px;
+  background: linear-gradient(135deg, #4a7c1e, #6daa28);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 32px rgba(74,124,30,0.4), 0 0 0 1px rgba(74,124,30,0.3);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; color: #fff;
+  transform: rotate(-3deg);
+}
+.brand-title { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 4px; color: #f0ede6; line-height: 1; }
+.brand-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 3px; color: #6daa28; text-transform: uppercase; margin-top: 4px; }
+
+.verificar-card {
+  background: rgba(18, 22, 14, 0.95);
+  border: 1px solid rgba(74,124,30,0.2);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 32px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.verificar-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #6daa28, transparent);
+}
+
+.card-heading { margin-bottom: 24px; }
+.card-heading h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700; color: #f0ede6; letter-spacing: 1px; }
+.card-heading p { font-size: 14px; color: #7a8270; margin-top: 8px; }
+
+.field-group { margin-bottom: 18px; text-align: left; }
+.field-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #5a6350; margin-bottom: 7px; }
+.input-wrap { position: relative; }
+
+.agro-input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 13px 14px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  color: #f0ede6;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+.agro-input::placeholder { color: #3a4232; }
+.agro-input:focus { border-color: #6daa28; background: rgba(109,170,40,0.06); box-shadow: 0 0 0 3px rgba(109,170,40,0.1); }
+
+.aviso-box { background: rgba(109,170,40,0.08); border: 1px solid rgba(109,170,40,0.3); color: #6daa28; border-radius: 10px; padding: 11px 16px; margin-bottom: 18px; font-size: 13px; font-weight: 500; }
+
+.btn-login {
+  width: 100%;
+  margin-top: 8px;
+  padding: 15px;
+  background: linear-gradient(135deg, #4a7c1e, #6daa28);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+  box-shadow: 0 4px 20px rgba(74,124,30,0.4);
+  position: relative;
+  overflow: hidden;
+}
+.btn-login:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(74,124,30,0.5); }
+.btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-login-inner { display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+.spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+.spinner-grande { width: 36px; height: 36px; margin: 8px auto 0; border: 3px solid rgba(109,170,40,0.2); border-top-color: #6daa28; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.link-cadastro { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px; margin-top: 18px; cursor: pointer; padding: 10px; border-radius: 8px; }
+.link-cadastro span { font-weight: 600; color: #6daa28; text-decoration: underline; text-underline-offset: 2px; }
+.link-cadastro:hover { color: #6daa28; }
+
+.bottom-badge { text-align: center; margin-top: 28px; font-size: 11px; color: #2e3628; letter-spacing: 1px; }
+
+@media (max-width: 480px) {
+  .verificar-card { padding: 28px 20px; }
+  .brand-title { font-size: 34px; }
+}

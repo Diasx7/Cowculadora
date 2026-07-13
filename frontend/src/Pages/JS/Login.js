@@ -9,9 +9,14 @@ function Login({ setTela }) {
   const [focusEmail, setFocusEmail] = useState(false);
   const [focusSenha, setFocusSenha] = useState(false);
   const [erro, setErro] = useState("");
+  const [naoVerificado, setNaoVerificado] = useState(false);
+  const [reenviando, setReenviando] = useState(false);
+  const [msgReenvio, setMsgReenvio] = useState("");
 
   async function handleLogin() {
     setErro("");
+    setNaoVerificado(false);
+    setMsgReenvio("");
 
     if (!email || !senha) {
       setErro("Preencha e-mail e senha.");
@@ -26,8 +31,13 @@ function Login({ setTela }) {
     } catch (err) {
       console.error("Erro no login:", err);
       if (err.response) {
-        // servidor respondeu com erro (4xx, 5xx) - o corpo vem como {error: "..."}, nunca renderiza o objeto direto
-        setErro(err.response?.data?.error || "Credenciais inválidas. Tente novamente.");
+        // 403 com naoVerificado é caso especial - mostra reenviar em vez do erro genérico
+        if (err.response.status === 403 && err.response.data?.naoVerificado) {
+          setNaoVerificado(true);
+        } else {
+          // o corpo vem como {error: "..."}, nunca renderiza o objeto direto
+          setErro(err.response?.data?.error || "Credenciais inválidas. Tente novamente.");
+        }
       } else if (err.request) {
         // requisição saiu mas sem resposta (API fora do ar, CORS, etc.)
         setErro("Não foi possível conectar ao servidor. Verifique se a API está rodando.");
@@ -36,6 +46,19 @@ function Login({ setTela }) {
       }
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleReenviar() {
+    setReenviando(true);
+    setMsgReenvio("");
+    try {
+      const res = await api.post("/reenviar-verificacao", { email });
+      setMsgReenvio(res.data.message || "Se o e-mail existir, reenviamos o link.");
+    } catch (err) {
+      setMsgReenvio("Não foi possível reenviar agora. Tente de novo em instantes.");
+    } finally {
+      setReenviando(false);
     }
   }
 
@@ -62,6 +85,16 @@ function Login({ setTela }) {
           {erro && (
             <div className="erro-box">
               {erro}
+            </div>
+          )}
+
+          {naoVerificado && (
+            <div className="aviso-box">
+              Confirme seu e-mail para entrar. Não recebeu o link?{" "}
+              <span className="link-reenviar" onClick={handleReenviar}>
+                {reenviando ? "Reenviando..." : "Reenviar e-mail"}
+              </span>
+              {msgReenvio && <div style={{ marginTop: 6 }}>{msgReenvio}</div>}
             </div>
           )}
 
